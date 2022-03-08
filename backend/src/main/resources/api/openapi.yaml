@@ -73,6 +73,39 @@ paths:
           description: customer id does not exist
           content: {}
 
+  /api/v1/carts/{customerId}/item:
+    get:
+      tags:
+        - cart
+      summary: Returns user items that are stored on  customers Cart
+      description: Return items  by  given  customre id
+      operationId: getcarItemsByCutomer
+      parameters:
+        - name: cutomerid
+          in: path
+          description: customer identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: succesfull operation
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Item"
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Item"
+        400:
+          description: Given customer id dose not work
+
+
+
 
 components:
   schemas:

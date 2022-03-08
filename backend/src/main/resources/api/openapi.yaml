@@ -145,12 +145,37 @@ components:
             - COMPLETED
       xml:
         name: Order
+
+
     User:
       description: Representation of a user
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        userStatus:
+          type: integer
+          description: user Status
+          format: int32
+      xml:
+        name: User
 
 
     AddAddresseReq:
-      description: Request for new card Registration
+      description: Request for new address registration or  modifie an existing one
       allOf:
         - $ref: '#/components/schemas/Address'
         - type: object
@@ -163,7 +188,7 @@ components:
         number:
           description: house number
           type: string
-        recidency:
+        residency:
           description: building name
           type: string
         street:
@@ -171,6 +196,7 @@ components:
           type: string
         city:
           description: city name
+          type: string
         state:
           description: state name
           type: string
@@ -209,15 +235,74 @@ components:
         name: AddCardReq
 
     Payment:
+      description: payment information
+      type: object
+      properties:
+        authorized:
+          description: check if a payment is  authorized before
+          type: boolean
+        message:
+          description: Accept or Declined message
+          type: string
+      xml:
+        name: Payment
 
-    PaymentReq:
+
+
 
     Shipment:
+      description: shipment infomation
+      type: object
+      properties:
+        orderid:
+          description: order identification
+          type: string
+        carrier:
+          description: shipping carrier
+          type: string
+        trackingNumber:
+          description: shipment tracking number
+          type: string
+        estimateDelivieryDate:
+          description: Estimated delivery date
+          type: string
+          format: date
+      xml:
+        name: Shippment
+
+
 
     ShippingReq:
+      description: request for shipment
+      type: object
+      properties:
+        orderid:
+          description: order identification
+          type: string
+        addresse:
+          $ref: '#/components/schemas/Address'
+        itemcount:
+          description: the number of items in the order
+          type: integer
+          format: int32
+      xml:
+        name: ShippingRequest
 
     NewOrder:
-      description: request information
+      description: request information for new order
+      type: object
+      properties:
+        customer:
+          #description: uri that is going to be used to fetch customer
+          $ref: '#/components/schemas/URI'
+        address:
+          $ref: '#/components/schemas/URI'
+        card:
+          $ref: '#/components/schemas/URI'
+        items:
+          $ref: '#/components/schemas/URI'
+      xml:
+        name: NewOrder
 
     Authorization:
       description: payment authorization
@@ -261,6 +346,26 @@ components:
           type: string
       xml:
         name: CustomerInfoOnCard
+
+    PaymentReq:
+      description: Payment request information
+      type: object
+      properties:
+        oderid:
+          description: order identification
+          type: string
+        customer:
+          $ref: '#/components/schemas/CustomerInfoOnCard'
+        adresse:
+          $ref: '#/components/schemas/Address'
+        card:
+          $ref: '#/components/schemas/Card'
+        amount:
+          description: Payment amount
+          type: number
+          format: double
+      xml:
+        name: PaymentReq
 
     Product:
       description: Product information

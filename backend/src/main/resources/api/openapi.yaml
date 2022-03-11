@@ -51,9 +51,8 @@ paths:
                   $ref: '#/components/schemas/Cart'
         400:
           description: Given customer id does not exist
-          content: {}
+          content: { }
     delete:
-
       tags:
         - cart
       summary: delete the shopping cart of a given customerid
@@ -71,7 +70,7 @@ paths:
           description: opperation successful
         400:
           description: customer id does not exist
-          content: {}
+          content: { }
 
   /api/v1/carts/{customerId}/item:
     get:
@@ -79,14 +78,25 @@ paths:
         - cart
       summary: Returns user items that are stored on  customers Cart
       description: Return items  by  given  customre id
-      operationId: getcarItemsByCutomer
+      operationId: getCartItemsByCutomerId
       parameters:
-        - name: cutomerid
+        - name: customerId
           in: path
           description: customer identifier
           required: true
           schema:
             type: string
+      requestBody:
+        description: items object
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Item'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+
+
       responses:
         200:
           description: succesfull operation
@@ -102,9 +112,77 @@ paths:
                 items:
                   $ref: "#/components/schemas/Item"
         400:
-          description: Given customer id dose not work
-
-
+          description: Given customer id is not present try with different
+          content: { }
+    post:
+      tags:
+        - cart
+      summary: Add items to shoping cart
+      description: Add items to customer shoping cart if the item is not present on cart, or increase the the quantity of items if the item already exist on the cart
+      operationId: addItemsOnCartByCustomerId
+      parameters:
+        - name : customerId
+          in: path
+          description: customer identifier
+          required:  true
+          schema:
+            type: string
+      responses:
+        200:
+          description: operation succesfull
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        400:
+          description: given cutomer identification is not present
+          content:  { }
+    put:
+      tags:
+        - cart
+      summary: Replace/add an item in shopping cart
+      description: Adds an item to the shopping cart if it doesn't already exist, or replace with given item if it does.
+      operationId: addOrReplaceItemsByCustomerId
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer Identifier
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Item object
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Item'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+      responses:
+        201:
+          description: Item added successfully
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        404:
+          description: Given customer ID doesn't exist
+          content: { }
 
 
 components:

@@ -86,16 +86,6 @@ paths:
           required: true
           schema:
             type: string
-      requestBody:
-        description: items object
-        content:
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Item'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Item'
-
 
       responses:
         200:
@@ -127,6 +117,15 @@ paths:
           required:  true
           schema:
             type: string
+      requestBody:
+        description: items object
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Item'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
       responses:
         200:
           description: operation succesfull
@@ -183,8 +182,57 @@ paths:
         404:
           description: Given customer ID doesn't exist
           content: { }
-
-
+  /api/v1/carts/{customerId}/itetms/{itemId}:
+    get:
+      tags:
+        - cart
+      summary: Return items on customers cart
+      description: Return items on  customers cart by given customer id and item id
+      operationId: getCartItemById
+      parameters:
+        - name: customerId
+          in: path
+          description: customer identification
+          required: true
+          schema:
+            type: string
+        - name: itemId
+          in: path
+          description: item or product identification
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: operation succesfull items exist in cart
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Item'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        400:
+          description: item does not exists operation failed
+          content: { }
+    delete:
+      tags:
+        - cart
+      summary:  remove items on customer cart
+      description: remove items from  customers cart by given customer id and item id
+      operationId: removeItemsById
+      parameters:
+        - name: customerId
+          in: path
+          description: customer identification
+          required: true
+          schema:
+            type: string
+        -
 components:
   schemas:
     Cart:

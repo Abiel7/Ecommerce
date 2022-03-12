@@ -6,6 +6,9 @@ This is a fullstack ecommerce application. API(backend) for this apllication is 
 
 **Running or to test the backend**
 `cd backend`.
+
 `./gradlew build` or `./gradlew clean build`.
+
 `./gradlew build` or `./gradlew clean build`.
+
 `java -jar .\build\libs\backend-0.0.1-SNAPSHOT.jar`                                          

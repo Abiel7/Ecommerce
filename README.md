@@ -14,4 +14,4 @@ This is a fullstack ecommerce application. API(backend) for this apllication is 
 
 **Testing**
 
-`curl --request GET 'http://localhost:8181/api/v1/carts/1' --header 'Accept: application/json'`
+`curl --request GET 'http://localhost:8181/api/v1/carts/1' --header 'Accept: application/json'` or you can replace the json part with xml

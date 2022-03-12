@@ -13,4 +13,5 @@ This is a fullstack ecommerce application. API(backend) for this apllication is 
 `java -jar .\build\libs\backend-0.0.1-SNAPSHOT.jar`       
 
 **Testing**
+
 `curl --request GET 'http://localhost:8181/api/v1/carts/1' --header 'Accept: application/json'`

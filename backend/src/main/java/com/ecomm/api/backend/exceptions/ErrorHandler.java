@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpSessionRequiredException;
@@ -76,14 +77,36 @@ public class ErrorHandler {
      */
     @ExceptionHandler(HttpMessageNotWritableException.class)
     public ResponseEntity<Error> handelHttpMessageNotWritableException(HttpServletRequest request, HttpMessageNotWritableException exception, Locale locale){
-        return  null;
+        exception.printStackTrace();
+        Error error = ErrorUtils.createError(
+                ErrorCode.HTTP_MESSAGE_NOT_WRITABLE.getErrMsgKey(),
+                ErrorCode.HTTP_MESSAGE_NOT_READABLE.getErrCode(),
+                HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
+                .setUrl(request.getRequestURI().toString())
+                .setReqMethod(request.getMethod());
+        log.info("HttpMessageNotWritableException :: request.getMethod()" + request.getMethod());
+        return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Error> handelHttpMessageNotReadableException(HttpServletRequest request, HttpMessageNotReadableException exception, Locale locale){
+        exception.printStackTrace(); // this is the cause of the exception
+        Error error = ErrorUtils.createError(
+                ErrorCode.HTTP_MESSAGE_NOT_READABLE.getErrMsgKey(),
+                ErrorCode.HTTP_MESSAGE_NOT_READABLE.getErrCode(),
+                HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
+                .setUrl(request.getRequestURI().toString())
+                .setReqMethod(request.getMethod());
+        log.info("HttpMessageNotReadableException :: request.getMethod()" + request.getMethod());
+        return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 
-    public static void main(String[] args) {
-        Locale locale =  new Locale("no","NORWAY","NY");
-        System.out.println(locale);
     }
+
+    @ExceptionHandler()
+
+
+
 
 
 }

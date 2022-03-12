@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Ecommerce app
-  description: the purpose of this api is to  demonstrate how ecommerce api can be designed
+  description: The purpose of this api is to  implment ecommerce application
   version: 1.0.0
 tags:
   - name: cart
@@ -86,16 +86,6 @@ paths:
           required: true
           schema:
             type: string
-      requestBody:
-        description: items object
-        content:
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Item'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Item'
-
 
       responses:
         200:
@@ -127,6 +117,15 @@ paths:
           required:  true
           schema:
             type: string
+      requestBody:
+        description: items object
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Item'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
       responses:
         200:
           description: operation succesfull
@@ -183,6 +182,110 @@ paths:
         404:
           description: Given customer ID doesn't exist
           content: { }
+  /api/v1/carts/{customerId}/itetms/{itemId}:
+    get:
+      tags:
+        - cart
+      summary: Return items on customers cart
+      description: Return items on  customers cart by given customer id and item id
+      operationId: getCartItemById
+      parameters:
+        - name: customerId
+          in: path
+          description: customer identification
+          required: true
+          schema:
+            type: string
+        - name: itemId
+          in: path
+          description: item or product identification
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: operation succesfull items exist in cart
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Item'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        400:
+          description: item does not exists operation failed
+          content: { }
+    delete:
+      tags:
+        - cart
+      summary:  remove items on customer cart
+      description: remove items from  customers cart by given customer id and item id
+      operationId: removeItemsById
+      parameters:
+        - name: customerId
+          in: path
+          description: customer identification
+          required: true
+          schema:
+            type: string
+        - name : itemId
+          in: path
+          description: item identification
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: operation succesful
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        400:
+          description: operation filed
+          content:  { }
+  /api/v1/order:
+    post:
+      tags:
+        - order
+      summary: create a  new  order for the  given order request
+      description: create a new order for the given order request
+      operationId: addOrder
+      requestBody:
+        description: new order request
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/NewOrder'
+
+      responses:
+        200:
+          description: operation succecfull
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/NewOrder'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewOrder'
+        400:
+          description: operation failed
+          content:  {}
 
 
 

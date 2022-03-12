@@ -1,6 +1,7 @@
 package com.ecomm.api.backend.exceptions;
 
 
+import com.fasterxml.jackson.core.JsonParseException;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,7 +104,17 @@ public class ErrorHandler {
 
     }
 
-    @ExceptionHandler()
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<Error> handelJsonParseException(HttpServletRequest request, JsonParseException exception, Locale locale){
+        exception.printStackTrace();
+        Error error = ErrorUtils.createError(
+                ErrorCode.JSON_PARSE_ERROR.getErrMsgKey(),
+                ErrorCode.JSON_PARSE_ERROR.getErrCode(),HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
+                .setUrl(request.getRequestURI().toString())
+                .setReqMethod(request.getMethod());
+        return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 
 
 

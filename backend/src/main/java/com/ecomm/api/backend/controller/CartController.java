@@ -2,10 +2,12 @@ package com.ecomm.api.backend.controller;
 
 
 import com.ecommerce.api.CartApi;
+import com.ecommerce.api.model.Cart;
 import com.ecommerce.api.model.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -13,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
-
+@RestController
 public class CartController implements CartApi {
     private static final Logger log = LoggerFactory.getLogger(CartController.class);
 
@@ -23,6 +25,34 @@ public class CartController implements CartApi {
         return ok(Collections.EMPTY_LIST);
     }
 
+    @Override
+    public ResponseEntity<List<Item>> addOrReplaceItemsByCustomerId(String customerId, Item item) {
+        return CartApi.super.addOrReplaceItemsByCustomerId(customerId, item);
+    }
 
+    @Override
+    public ResponseEntity<Void> deleteCart(String customerId) {
+        return CartApi.super.deleteCart(customerId);
+    }
+
+    @Override
+    public ResponseEntity<List<Cart>> getCartByCustomerId(String customerId) {
+        return CartApi.super.getCartByCustomerId(customerId);
+    }
+
+    @Override
+    public ResponseEntity<List<Item>> getCartItemById(String customerId, String itemId) {
+        return CartApi.super.getCartItemById(customerId, itemId);
+    }
+
+    @Override
+    public ResponseEntity<List<Item>> getCartItemsByCutomerId(String customerId) {
+        return CartApi.super.getCartItemsByCutomerId(customerId);
+    }
+
+    @Override
+    public ResponseEntity<List<Item>> removeItemsById(String customerId, String itemId) {
+        return CartApi.super.removeItemsById(customerId, itemId);
+    }
 }
 

@@ -17,42 +17,46 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 @RestController
 public class CartController implements CartApi {
-    private static final Logger log = LoggerFactory.getLogger(CartController.class);
 
+
+     private static final Logger log = LoggerFactory.getLogger(CartController.class);
+  
     @Override
     public ResponseEntity<List<Item>> addItemsOnCartByCustomerId(String customerId, @Valid Item item){
         log.info("Request for customre if {}\nItem: {} ",customerId,item);
         return ok(Collections.EMPTY_LIST);
+
     }
 
     @Override
     public ResponseEntity<List<Item>> addOrReplaceItemsByCustomerId(String customerId, Item item) {
-        return CartApi.super.addOrReplaceItemsByCustomerId(customerId, item);
+        return null;
     }
 
     @Override
     public ResponseEntity<Void> deleteCart(String customerId) {
-        return CartApi.super.deleteCart(customerId);
+        return null;
     }
 
     @Override
     public ResponseEntity<List<Cart>> getCartByCustomerId(String customerId) {
-        return CartApi.super.getCartByCustomerId(customerId);
+        return null;
     }
 
     @Override
     public ResponseEntity<List<Item>> getCartItemById(String customerId, String itemId) {
-        return CartApi.super.getCartItemById(customerId, itemId);
+        return null;
     }
 
     @Override
     public ResponseEntity<List<Item>> getCartItemsByCutomerId(String customerId) {
-        return CartApi.super.getCartItemsByCutomerId(customerId);
+        return null;
     }
 
     @Override
     public ResponseEntity<List<Item>> removeItemsById(String customerId, String itemId) {
-        return CartApi.super.removeItemsById(customerId, itemId);
+        return null;
     }
+
 }
 

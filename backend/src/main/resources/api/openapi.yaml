@@ -255,7 +255,7 @@ paths:
         400:
           description: operation filed
           content:  { }
-  /api/v1/order:
+  /api/v1/orders:
     post:
       tags:
         - order
@@ -268,24 +268,152 @@ paths:
           application/xml:
             schema:
               $ref: '#/components/schemas/NewOrder'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrder'
 
       responses:
         200:
-          description: operation succecfull
+          description:  order added successfully
           content:
             application/xml:
               schema:
                 type: array
                 items:
-                 $ref: '#/components/schemas/NewOrder'
+                 $ref: '#/components/schemas/Order'
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/NewOrder'
+                  $ref: '#/components/schemas/Order'
         400:
           description: operation failed
           content:  {}
+    get:
+      tags:
+        - order
+      summary: return orders
+      description: returns orders of a given user
+      operationId: getOrdersByCustomerID
+      parameters:
+        - name: customerId
+          in: query
+          description: Customer Identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: get order if order exists
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        400:
+          description: order does not exist for a given user
+          content: { }
+
+  /api/v1/orders{id}:
+    get:
+      tags:
+        - order
+      summary: Returns order by a given id
+      description: Returns order by a given id
+      operationId: getOrderById
+      parameters:
+        - name: id
+          in: path
+          description: order Identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: if order exists
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Order'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+
+        400:
+          description: order id does not exist
+          content:  { }
+  /api/v1/customers:
+    get:
+      tags:
+        - customer
+      summary: Returns  all customers
+      description:  Returns all users, or empty collection
+      operationId: getAllCustomers
+      responses:
+        200:
+          description: successful fetch of all users
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /api/v1/customer{id}:
+    get:
+      tags:
+        - customer
+      summary: Return customer by  given ID
+      description: Returns  a customer by given id
+      operationId: getCustomerByID
+      parameters:
+        - name: id
+          in: path
+          description: customer identification
+          schema:
+            type: string
+      responses:
+        200:
+          description: successfull fetch
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Customer id does not exist
+          content:  { }
+    delete:
+      tags:
+        - customer
+      summary: Deletes customer
+      description: Deletes the customer identifiable by given ID
+      operationId: deleteCustomerById
+      parameters:
+        - name: id
+          in: path
+          description: customer identification
+          schema:
+            type: string
+      responses:
+        200:
+          description: request accepted, reurns theis status even if the user does not exists
+          content: {}
+
 
 
 components:

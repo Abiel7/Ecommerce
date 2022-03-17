@@ -1,6 +1,7 @@
 package com.ecomm.api.backend.exceptions;
 
 
+import com.fasterxml.jackson.core.JsonParseException;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -65,7 +68,7 @@ public class ErrorHandler {
                 .setUrl(request.getRequestURI().toString())
                 .setReqMethod(request.getMethod());
 
-        return  new ResponseEntity<Error>(error,HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+        return  new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
@@ -76,7 +79,47 @@ public class ErrorHandler {
      */
     @ExceptionHandler(HttpMessageNotWritableException.class)
     public ResponseEntity<Error> handelHttpMessageNotWritableException(HttpServletRequest request, HttpMessageNotWritableException exception, Locale locale){
-        return  null;
+        exception.printStackTrace();
+        Error error = ErrorUtils.createError(ErrorCode.HTTP_MESSAGE_NOT_WRITABLE.getErrMsgKey(),
+                ErrorCode.HTTP_MESSAGE_NOT_WRITABLE.getErrCode(),HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .setUrl(request.getRequestURI().toString())
+                .setReqMethod(request.getMethod());
+
+        return  new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+    public ResponseEntity<Error> handelHttpMediaTypeNotAcceptableException(HttpServletRequest request, HttpMediaTypeNotAcceptableException exception, Locale locale){
+        exception.printStackTrace();
+        Error error = ErrorUtils.createError(ErrorCode.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE.getErrMsgKey(),
+                ErrorCode.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE.getErrCode(),HttpStatus.NOT_ACCEPTABLE.value())
+                .setUrl(request.getRequestURI().toString())
+                .setReqMethod(request.getMethod());
+
+        return  new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Error> handelHttpMessageNotReadableException(HttpServletRequest request, HttpMessageNotReadableException exception, Locale locale){
+        exception.printStackTrace();
+        Error error = ErrorUtils.createError(ErrorCode.HTTP_MESSAGE_NOT_READABLE.getErrMsgKey(),
+                ErrorCode.HTTP_MESSAGE_NOT_READABLE.getErrCode(),HttpStatus.BAD_REQUEST.value())
+                .setUrl(request.getRequestURI().toString())
+                .setReqMethod(request.getMethod());
+
+        return  new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<Error> handelJsonParseException(HttpServletRequest request, JsonParseException exception, Locale locale){
+        exception.printStackTrace();
+        Error error = ErrorUtils.createError(ErrorCode.JSON_PARSE_ERROR.getErrMsgKey(),
+                ErrorCode.JSON_PARSE_ERROR.getErrCode(),HttpStatus.BAD_REQUEST.value())
+                .setUrl(request.getRequestURI().toString())
+                .setReqMethod(request.getMethod());
+
+        return  new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

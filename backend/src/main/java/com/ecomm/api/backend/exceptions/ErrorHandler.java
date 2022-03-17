@@ -1,3 +1,4 @@
+
 package com.ecomm.api.backend.exceptions;
 
 
@@ -120,12 +121,6 @@ public class ErrorHandler {
                 .setReqMethod(request.getMethod());
 
         return  new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-
-    public static void main(String[] args) {
-        Locale locale =  new Locale("no","NORWAY","NY");
-        System.out.println(locale);
     }
 
 

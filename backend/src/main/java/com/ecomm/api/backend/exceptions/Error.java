@@ -2,10 +2,11 @@ package com.ecomm.api.backend.exceptions;
 
 
 import lombok.Data;
+import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
 
 
-@Data
+
 public class Error {
 
     /*App error code */
@@ -33,4 +34,35 @@ public class Error {
         return  this;
     }
 
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getReqMethod() {
+        return reqMethod;
+    }
 }

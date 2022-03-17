@@ -20,6 +20,9 @@ tags:
     description: shipment operations
   - name: payment
     description: payment operations
+  - name: card
+    description: card operation
+
 paths:
   /api/v1/carts/{customerId}:
     get:
@@ -321,7 +324,7 @@ paths:
           description: order does not exist for a given user
           content: { }
 
-  /api/v1/orders{id}:
+  /api/v1/orders/{id}:
     get:
       tags:
         - order
@@ -371,7 +374,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/User'
 
-  /api/v1/customer{id}:
+  /api/v1/customers/{id}:
     get:
       tags:
         - customer
@@ -413,6 +416,173 @@ paths:
         200:
           description: request accepted, reurns theis status even if the user does not exists
           content: {}
+  /api/v1/customers/{id}/card:
+    get:
+      tags:
+        - customer
+      summary: Returns customer cards
+      description: Returns all customers cards based on  iiven customer ID
+      operationId: getCardByCustomerId
+      parameters:
+        - name: id
+          in: path
+          description: customer identification
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: for successful fetch
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Card'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+  /api/v1/customers/{id}/addresses:
+    get:
+      tags:
+        - customer
+      summary: Returns customers's addresses
+      description: Returns all customer's addresses by given id
+      operationId: getCustomerAddresseByID
+      parameters:
+        - name: id
+          in: path
+          description: Customer Identification
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successfull fetch
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref:  '#/components/schemas/Address'
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Address'
+  /api/v1/addresses:
+    get:
+      tags:
+        - address
+      description: Returns all customers addresses
+      operationId: getAddresses
+      responses:
+        200:
+          description: successfull fetch
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+    post:
+      tags:
+        - address
+      summary:  create new Addresse
+      description: create new addresses, nothing happen if the addresse already exists
+      operationId: createAddress
+      requestBody:
+        content:
+          application/xml:
+            schema:
+                $ref: '#/components/schemas/AddAddressReq'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddAddressReq'
+      responses:
+        200:
+          description: successfull fetch
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+  /api/v1/addresses/{id}:
+    get:
+      tags:
+        - address
+      summary: Returns address of agiven  id
+      description: Returns  users address based on the given id
+      operationId: getAddressById
+      parameters:
+        - name: id
+          in: path
+          description:  address identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successfull fetch
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+
+    delete:
+      tags:
+        - address
+      summary: Delete address by given name
+      description: Delete users address by given id
+      operationId: deleteAdrressById
+      parameters:
+        - name: id
+          in: path
+          description: address identifier
+          required: true
+          schema:
+            type: string
+
+      responses:
+              200:
+                description: successfull fetch
+                content:  {}
+  /api/v1/cards:
+    get:
+      tags:
+        - card
+      summary: Returns all users card
+      description: Returns all user's cards
+      operationId: getCards
+      responses:
+        200:
+          description: successfull fetch
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+
+
+
+
+
+
+
 
 
 
@@ -517,7 +687,7 @@ components:
         name: User
 
 
-    AddAddresseReq:
+    AddAddressReq:
       description: Request for new address registration or  modifie an existing one
       allOf:
         - $ref: '#/components/schemas/Address'

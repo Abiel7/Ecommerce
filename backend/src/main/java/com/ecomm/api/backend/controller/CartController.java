@@ -18,13 +18,12 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 public class CartController implements CartApi {
 
+
      private static final Logger log = LoggerFactory.getLogger(CartController.class);
-
-
+  
     @Override
-    public ResponseEntity<List<Item>> addItemsOnCartByCustomerId(String customerId, Item item) {
+    public ResponseEntity<List<Item>> addItemsOnCartByCustomerId(String customerId, @Valid Item item){
         log.info("Request for customre if {}\nItem: {} ",customerId,item);
-
         return ok(Collections.EMPTY_LIST);
 
     }

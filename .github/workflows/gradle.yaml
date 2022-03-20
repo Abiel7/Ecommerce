@@ -20,4 +20,4 @@ jobs:
       - name: Open backend 
         run: cd backend/
       - name: Build with Gradle
-        run: ./gradlew build --scan 
+        run: ./gradlew build --scan

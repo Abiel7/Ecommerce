@@ -9,16 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Open backend 
+        run:  |
+          ls -la
+          cd backend/
+          ls -la
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
           java-version: 17
           distribution: 'adopt'
           cache: gradle
-      - name: Open backend 
-        run:  |
-          ls -la
-          cd backend
-          ls -la
       - name: Build with Gradle
         run: ./gradlew build --scan 

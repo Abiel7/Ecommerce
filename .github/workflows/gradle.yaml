@@ -18,7 +18,7 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - name: Open backend 
-        run: cd backend/
+        run: cd /home/runner/work/Ecommerce_Fullstack/Ecommerce_Fullstack/backend/
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle

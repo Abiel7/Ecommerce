@@ -385,6 +385,7 @@ paths:
         - name: id
           in: path
           description: customer identification
+          required: true
           schema:
             type: string
       responses:
@@ -410,6 +411,7 @@ paths:
         - name: id
           in: path
           description: customer identification
+          required: true
           schema:
             type: string
       responses:
@@ -576,15 +578,250 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Card'
+    post:
+      tags:
+        - card
+      summary: register new card
+      description: create new card, or replace the existing one
+      operationId: registerCard
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddCardReq'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddAddressReq'
+      responses:
+        200:
+          description: For successful fetch.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Address'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
 
+  /api/v1/cards{id}:
+    get:
+      tags:
+        - card
+      summary: Returns users card
+      description: Returns users card based on the given id
+      operationId: getCardById
+      parameters:
+        - name: id
+          in: path
+          description:   card identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: For successful fetch.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Card'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
 
+    delete:
+      tags:
+        - card
+      summary: Delete users card
+      description: Delete users card by given id
+      operationId: deleteCardByID
+      parameters:
+        - name: id
+          in: path
+          description: card identifier
+          required: true
+          schema:
+            type: string
+      responses:
+          200:
+            description: Accepts the deletion request and perform deletion. If ID does not exist, does nothing.
+            content: { }
+  /api/v1/payments:
+    post:
+      tags:
+        - payment
+      summary: Authorize a payment request
+      description: Authorize a paymetn request
+      operationId: authorize
+      requestBody:
+        content:
+          application/xml :
+            schema:
+              $ref: '#/components/schemas/PaymentReq'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentReq'
+      responses:
+        200:
+          description: For successful fetch.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
 
+    get:
+      tags:
+        - payment
+      summary: Return the payment authorization
+      description: Returns the payment authorization for specified order
+      operationId: getOrderPaymentAuthotization
+      parameters:
+        - name: id
+          in: query
+          description: Order identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: For successful fetch.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
 
+  /api/v1/shipping:
+    post:
+      tags:
+        - shipping
+      summary: Ship the specified shipping request
+      description: ship the specifed shipping request
+      operationId: shipOrder
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ShippingReq'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingReq'
+      responses:
+        200:
+         description: For successful fetch.
+         content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Authorization'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Authorization'
+    get:
+      tags:
+        - shipping
+      summary:  Rturn the shipment
+      description:  Return the shipment by given order id
+      operationId: getShippingByOrderid
+      parameters:
+        - name: id
+          in: query
+          description: order Identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: For successful fetch.
+          content:
+              application/xml:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Shipment'
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Shipment'
+  /api/v1/product:
+    get:
+      tags:
+        - product
+      summary: Returns all the matched products
+      description: Returns the products that matches the given query criteria
+      operationId: queryProducts
+      parameters:
+        - name: tag
+          in: query
+          description: Product tag
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: Product name
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Query page number
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: Query page size
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+      responses:
+        200:
+          description: For successful fetch.
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
 
-
-
-
-
+  /api/v1/products/{id}:
+    get:
+      tags:
+        - product
+      summary: Returns a product
+      description: Returns the product that matches the given product ID
+      operationId: getProduct
+      parameters:
+        - name: id
+          in: path
+          description: Product Identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: For successful fetch.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Product'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
 
 
 components:

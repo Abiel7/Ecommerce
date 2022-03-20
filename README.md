@@ -6,7 +6,7 @@ This is a fullstack ecommerce application. API(backend) for this apllication is 
 
 **Build the necessary elements to run the backend**
 
-`cd backend`
+`cd backend`.
 
 `./gradlew build` or `./gradlew clean build`.
 

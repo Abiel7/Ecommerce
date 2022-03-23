@@ -21,4 +21,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
+<<<<<<< Updated upstream:.github/workflows/gradle.yml
         run: ./gradlew  build --scan --no-daemon
+=======
+        run: ./gradlew  build --scan --no-daemon
+>>>>>>> Stashed changes:.github/workflows/gradle.yaml

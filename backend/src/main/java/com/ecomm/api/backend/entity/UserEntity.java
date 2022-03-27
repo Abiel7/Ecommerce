@@ -45,7 +45,7 @@ public class UserEntity {
     @JoinTable (
             name = "USER_ADDRESS",
             joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ADDRES_ID")
+            inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID")
     )
     private List<AddressEntity> addressEntities = Collections.emptyList();
 
@@ -62,7 +62,102 @@ public class UserEntity {
     private List<OrderEntity> orders;
 
 
+    public UUID getId() {
+        return id;
+    }
 
+    public UserEntity setId(UUID id) {
+        this.id = id;
+        return this;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public UserEntity setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
 
+    public String getPassword() {
+        return password;
+    }
+    public UserEntity setPassword(String password) {
+        this.password = password;
+        return this;
+    }
 
+    public String getFirstName() {
+        return firstName;
+    }
+    public UserEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public UserEntity setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+    public UserEntity setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public String getUserStatus() {
+        return userStatus;
+    }
+    public UserEntity setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+        return this;
+    }
+
+    public List<AddressEntity> getAddressEntities() {
+        return addressEntities;
+    }
+    public UserEntity setAddressEntities(List<AddressEntity> addressEntities) {
+        this.addressEntities = addressEntities;
+        return this;
+    }
+
+    public List<CardEntity> getCards() {
+        return cards;
+    }
+    public UserEntity setCards(List<CardEntity> cards) {
+        this.cards = cards;
+        return this;
+    }
+
+    public CartEntity getCart() {
+        return cart;
+    }
+    public UserEntity setCart(CartEntity cart) {
+        this.cart = cart;
+        return this;
+    }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+    public UserEntity setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
+        return this;
+    }
 }
+
+
+

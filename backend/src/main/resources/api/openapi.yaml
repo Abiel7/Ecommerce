@@ -598,10 +598,10 @@ paths:
           content:
             application/xml:
               schema:
-                $ref: '#/components/schemas/Address'
+                $ref: '#/components/schemas/Card'
             application/json:
               schema:
-                $ref: '#/components/schemas/Address'
+                $ref: '#/components/schemas/Card'
 
   /api/v1/cards{id}:
     get:

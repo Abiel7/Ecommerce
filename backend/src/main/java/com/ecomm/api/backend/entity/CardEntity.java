@@ -11,7 +11,7 @@ import java.util.UUID;
 public class CardEntity {
     @Id
     @GeneratedValue
-    @Column(name = "ID",updatable = false, nullable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "NUMBER")
@@ -20,26 +20,29 @@ public class CardEntity {
     @Column(name = "EXPIRES")
     private String expires;
 
-    @Column(name = "CCV")
+    @Column(name = "CVV")
     private String cvv;
 
-    @OneToOne
-    @JoinColumn(name = "User_ID", referencedColumnName = "ID")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "cardEntity", fetch = FetchType.LAZY,orphanRemoval = true)
+    @OneToMany(mappedBy = "cardEntity", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<OrderEntity> orders;
 
     public UUID getId() {
         return id;
     }
+
     public CardEntity setId(UUID id) {
         this.id = id;
         return this;
     }
+
     public String getNumber() {
         return number;
     }
+
     public CardEntity setNumber(String number) {
         this.number = number;
         return this;
@@ -72,11 +75,11 @@ public class CardEntity {
         return this;
     }
 
-    public List<OrderEntity> getOrders() {
+    public List<OrderEntity> getOrderEntity() {
         return orders;
     }
 
-    public CardEntity setOrders(List<OrderEntity> orders) {
+    public CardEntity setOrderEntity(List<OrderEntity> orders) {
         this.orders = orders;
         return this;
     }

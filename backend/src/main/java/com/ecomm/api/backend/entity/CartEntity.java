@@ -1,8 +1,6 @@
 package com.ecomm.api.backend.entity;
 
 
-import lombok.Data;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 @Entity
@@ -29,7 +26,7 @@ public class CartEntity {
 
     @OneToOne
     @JoinColumn(name = "User_ID", referencedColumnName = "ID")
-    private UserEntity users ;
+    private UserEntity user;
 
     @ManyToMany(cascade= CascadeType.ALL)
     @JoinTable(
@@ -40,6 +37,8 @@ public class CartEntity {
     )
     private List<ItemEntity> items = Collections.emptyList();
 
+
+
     public UUID getId() {
         return id;
     }
@@ -48,12 +47,12 @@ public class CartEntity {
         this.id = id;
         return this;
     }
-    public UserEntity getUsers() {
-        return users;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public CartEntity setUsers(UserEntity users) {
-        this.users = users;
+    public CartEntity setUser(UserEntity users) {
+        this.user = users;
         return this;
     }
     public List<ItemEntity> getItems() {
@@ -66,7 +65,7 @@ public class CartEntity {
     }
     @Override
     public int hashCode() {
-        return Objects.hash(users,items);
+        return Objects.hash(user,items);
     }
     @Override
     public boolean equals(Object obj) {
@@ -77,13 +76,13 @@ public class CartEntity {
             return false;
         }
         final CartEntity other = (CartEntity) obj;
-        return users.equals(other.users) && Objects.equals(id, other.id);
+        return user.equals(other.user) && Objects.equals(id, other.id);
     }
     @Override
     public String toString() {
         return "CartEntity{" +
                 "id=" + id +
-                ", users=" + users +
+                ", users=" + user +
                 ", items=" + items +
                 '}';
     }

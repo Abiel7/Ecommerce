@@ -38,6 +38,7 @@ repositories {
 
 dependencies {
     implementation 'org.projectlombok:lombok:1.18.22'
+    implementation 'junit:junit:4.13.2'
 
     // OpenAPI Starts
     swaggerCodegen 'org.openapitools:openapi-generator-cli:4.3.1'

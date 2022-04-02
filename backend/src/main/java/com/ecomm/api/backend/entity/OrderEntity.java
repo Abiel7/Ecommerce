@@ -85,8 +85,92 @@ public class OrderEntity {
         return this;
     }
 
-    
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
 
+    public OrderEntity setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+        return this;
+    }
 
+    public AddressEntity getAddressEntity() {
+        return addressEntity;
+    }
 
+    public OrderEntity setAddressEntity(AddressEntity addressEntity) {
+        this.addressEntity = addressEntity;
+        return this;
+    }
+
+    public PaymentEntity getPaymentEntity() {
+        return paymentEntity;
+    }
+
+    public OrderEntity setPaymentEntity(PaymentEntity paymentEntity) {
+        this.paymentEntity = paymentEntity;
+        return this;
+    }
+
+    public ShipmentEntity getShipment() {
+        return shipment;
+    }
+
+    public OrderEntity setShipment(ShipmentEntity shipment) {
+        this.shipment = shipment;
+        return this;
+    }
+
+    public CardEntity getCardEntity() {
+        return cardEntity;
+    }
+
+    public OrderEntity setCardEntity(CardEntity cardEntity) {
+        this.cardEntity = cardEntity;
+        return this;
+    }
+
+    public Timestamp getOrderDate() {
+        return orderDate;
+    }
+
+    public OrderEntity setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
+        return this;
+    }
+
+    public List<ItemEntity> getItems() {
+        return items;
+    }
+
+    public OrderEntity setItems(List<ItemEntity> items) {
+        this.items = items;
+        return this;
+    }
+
+    public AuthorizationEntity getAuthorizationEntity() {
+        return authorizationEntity;
+    }
+
+    public OrderEntity setAuthorizationEntity(AuthorizationEntity authorizationEntity) {
+        this.authorizationEntity = authorizationEntity;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", totalPrice=" + totalPrice +
+                ", status=" + status +
+                ", userEntity=" + userEntity +
+                ", addressEntity=" + addressEntity +
+                ", paymentEntity=" + paymentEntity +
+                ", shipment=" + shipment +
+                ", cardEntity=" + cardEntity +
+                ", orderDate=" + orderDate +
+                ", items=" + items +
+                ", authorizationEntity=" + authorizationEntity +
+                '}';
+    }
 }

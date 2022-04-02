@@ -23,10 +23,9 @@ public class CardEntity {
     @Column(name = "CVV")
     private String cvv;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private UserEntity user;
-
     @OneToMany(mappedBy = "cardEntity", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<OrderEntity> orders;
 

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+// create entity and use builder pattern
 @Entity
 @Table(name = "address")
 public class AddressEntity {

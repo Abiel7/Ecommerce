@@ -1042,15 +1042,14 @@ components:
       description: request information for new order
       type: object
       properties:
-        customer:
-          #description: uri that is going to be used to fetch customer
-          $ref: '#/components/schemas/URI'
+        customerId:
+          type: string
         address:
-          $ref: '#/components/schemas/URI'
+          $ref: '#/components/schemas/Address'
         card:
-          $ref: '#/components/schemas/URI'
+          $ref: '#/components/schemas/Card'
         items:
-          $ref: '#/components/schemas/URI'
+          $ref: '#/components/schemas/Item'
       xml:
         name: NewOrder
 

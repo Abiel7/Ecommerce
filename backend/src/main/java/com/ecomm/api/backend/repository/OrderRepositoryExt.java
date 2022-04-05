@@ -1,4 +1,12 @@
 package com.ecomm.api.backend.repository;
 
-public class OrderRepositoryExt {
+import com.ecomm.api.backend.entity.OrderEntity;
+import com.ecommerce.api.model.NewOrder;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
+import java.util.UUID;
+
+public interface OrderRepositoryExt  {
+    Optional<OrderEntity> insert(NewOrder m); // insert new order
 }

@@ -5,13 +5,13 @@ plugins {
     id 'org.hidetake.swagger.generator' version '2.18.2'
 }
 
-group = 'com.packt.modern.api'
+group = 'com.ecomm.api.backend'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.14'
 
 swaggerSources {
-    def typeMappings = 'URI=URI'
-    def importMappings = 'URI=java.net.URI'
+    def typeMappings = 'URI=URI, BigDecimal=BigDecimal, EntityModel=EntityModel'
+    def importMappings = 'URI=java.net.URI, BigDecimal=java.math.BigDecimal, EntityModel=org.springframework.hateoas.EntityModel'
     eStore {
         def apiYaml = "${rootDir}/src/main/resources/api/openapi.yaml"
         def configJson = "${rootDir}/src/main/resources/api/config.json"
@@ -23,6 +23,7 @@ swaggerSources {
             rawOptions = ['--ignore-file-override', ignoreFile, '--type-mappings',
                           typeMappings, '--import-mappings', importMappings] as List<String>
             components = [models: true, apis: true, supportingFiles: 'ApiUtil.java']
+            //templateDir = file("${rootDir}/src/main/resources/templates")
             //dependsOn validation // Should be uncommented once plugin starts supporting OA 3 validation
         }
     }

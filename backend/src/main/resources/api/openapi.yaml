@@ -492,9 +492,7 @@ paths:
           content:
             application/xml:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Address'
+                 $ref: '#/components/schemas/Address'
             application/json:
               schema:
                 $ref: '#/components/schemas/Address'
@@ -518,8 +516,6 @@ paths:
           content:
             application/xml:
               schema:
-                type: array
-                items:
                   $ref: '#/components/schemas/Address'
             application/json:
               schema:
@@ -530,7 +526,7 @@ paths:
         - address
       summary: Delete address by given name
       description: Delete users address by given id
-      operationId: deleteAdrressById
+      operationId: deleteAddressById
       parameters:
         - name: id
           in: path

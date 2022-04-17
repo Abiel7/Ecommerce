@@ -1,5 +1,6 @@
 package com.ecomm.api.backend.entity;
 
+
 import com.ecommerce.api.model.Order;
 
 import javax.persistence.*;
@@ -10,15 +11,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class OrderEntity {
     @Id
     @GeneratedValue
-    @Column(name = "id",updatable = false,nullable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "TOTAL")
-    private BigDecimal totalPrice;
+    private BigDecimal total;
 
     @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
@@ -67,12 +68,12 @@ public class OrderEntity {
         return this;
     }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public OrderEntity setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
+    public OrderEntity setTotal(BigDecimal total) {
+        this.total = total;
         return this;
     }
 
@@ -112,11 +113,11 @@ public class OrderEntity {
         return this;
     }
 
-    public ShipmentEntity getShipment() {
+    public ShipmentEntity getShipments() {
         return shipment;
     }
 
-    public OrderEntity setShipment(ShipmentEntity shipment) {
+    public OrderEntity setShipments(ShipmentEntity shipment) {
         this.shipment = shipment;
         return this;
     }
@@ -152,7 +153,8 @@ public class OrderEntity {
         return authorizationEntity;
     }
 
-    public OrderEntity setAuthorizationEntity(AuthorizationEntity authorizationEntity) {
+    public OrderEntity setAuthorizationEntity(
+            AuthorizationEntity authorizationEntity) {
         this.authorizationEntity = authorizationEntity;
         return this;
     }
@@ -161,7 +163,7 @@ public class OrderEntity {
     public String toString() {
         return "OrderEntity{" +
                 "id=" + id +
-                ", totalPrice=" + totalPrice +
+                ", total=" + total +
                 ", status=" + status +
                 ", userEntity=" + userEntity +
                 ", addressEntity=" + addressEntity +

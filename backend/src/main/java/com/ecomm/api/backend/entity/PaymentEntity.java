@@ -6,16 +6,20 @@ import java.util.UUID;
 @Entity
 @Table(name = "payment")
 public class PaymentEntity {
+
     @Id
     @GeneratedValue
-    @Column(name = "ID", updatable = false,nullable = false)
-    private  UUID id;
-    @Column(name = "AUTHORIZED")
+    @Column(name = "ID", updatable = false, nullable = false)
+    private UUID id;
+
+    @Column(name="AUTHORIZED")
     private boolean authorized;
+
     @Column(name = "MESSAGE")
     private String message;
+
     @OneToOne(mappedBy = "paymentEntity")
-    private OrderEntity oderEntity;
+    private OrderEntity orderEntity;
 
     public UUID getId() {
         return id;
@@ -43,8 +47,4 @@ public class PaymentEntity {
         this.message = message;
         return this;
     }
-
-
-
-
 }

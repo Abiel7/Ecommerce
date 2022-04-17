@@ -7,7 +7,7 @@ plugins {
 
 group = 'com.ecomm.api.backend'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.14'
+sourceCompatibility = "15"
 
 swaggerSources {
     def typeMappings = 'URI=URI, BigDecimal=BigDecimal, EntityModel=EntityModel'
@@ -40,6 +40,10 @@ repositories {
 dependencies {
     implementation 'org.projectlombok:lombok:1.18.22'
     implementation 'junit:junit:4.13.2'
+    implementation 'org.springframework:spring-test:5.3.18'
+    implementation 'net.anthavio.maven:spring-framework-bom:4.1.7.RELEASE'
+    implementation 'mysql:mysql-connector-java:8.0.28'
+
 
     // OpenAPI Starts
     swaggerCodegen 'org.openapitools:openapi-generator-cli:4.3.1'
@@ -52,17 +56,22 @@ dependencies {
 
     //DB starts
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.flywaydb:flyway-core'
+    implementation 'com.googlecode.flyway:flyway-core:2.3.1'
+
     runtimeOnly 'com.h2database:h2'
     // DB ends
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testImplementation('org.springframework.boot:spring-boot-starter-test') /*{
+    exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+  }*/
 }
 
+
 test {
+    jvmArgs '--enable-preview'
     useJUnitPlatform()
 }
+
+targetCompatibility = JavaVersion.VERSION_15

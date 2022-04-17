@@ -13,7 +13,7 @@ tags:
   - name: address
     description: adress operations
   - name: customer
-    description: cutomer operations
+    description: customer operations
   - name: product
     description: product operations
   - name: shipping
@@ -81,7 +81,7 @@ paths:
         - cart
       summary: Returns user items that are stored on  customers Cart
       description: Return items  by  given  customre id
-      operationId: getCartItemsByCutomerId
+      operationId: getCartItemsByCustomerId
       parameters:
         - name: customerId
           in: path
@@ -112,7 +112,7 @@ paths:
         - cart
       summary: Add items to shoping cart
       description: Add items to customer shoping cart if the item is not present on cart, or increase the the quantity of items if the item already exist on the cart
-      operationId: addItemsOnCartByCustomerId
+      operationId: addCartItemsByCustomerId
       parameters:
         - name : customerId
           in: path
@@ -144,7 +144,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Item'
         400:
-          description: given cutomer identification is not present
+          description: given customer identification is not present
           content:  { }
     put:
       tags:
@@ -191,7 +191,7 @@ paths:
         - cart
       summary: Return items on customers cart
       description: Return items on  customers cart by given customer id and item id
-      operationId: getCartItemById
+      operationId: getCartItemsByItemId
       parameters:
         - name: customerId
           in: path
@@ -227,7 +227,7 @@ paths:
         - cart
       summary:  remove items on customer cart
       description: remove items from  customers cart by given customer id and item id
-      operationId: removeItemsById
+      operationId: deleteItemFromCart
       parameters:
         - name: customerId
           in: path
@@ -243,21 +243,7 @@ paths:
             type: string
       responses:
         200:
-          description: operation succesful
-          content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Item'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Item'
-        400:
-          description: operation filed
-          content:  { }
+          description: Accepts the request,
   /api/v1/orders:
     post:
       tags:
@@ -847,12 +833,11 @@ components:
           type: string
         quantity:
           description: The item Quantity
-          type: number
+          type: integer
           format: int32
         unitPrice :
           description: Price per unit
-          type: number
-          format: double
+          type: BigDecimal
     Order:
       description: Order Representation
       type: object
@@ -935,6 +920,9 @@ components:
     Address:
       type: object
       properties:
+        id:
+          description: address id
+          type: string
         number:
           description: house number
           type: string
@@ -961,6 +949,9 @@ components:
     Card:
       type: object
       properties:
+        id:
+          description: card id
+          type: string
         cardnumber:
           description: card number
           type: string

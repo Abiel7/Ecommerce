@@ -1,3 +1,4 @@
+
 create schema if not exists ecomm;
 
 create TABLE IF NOT EXISTS ecomm.product (
@@ -7,7 +8,14 @@ create TABLE IF NOT EXISTS ecomm.product (
                                              price numeric(16, 4) DEFAULT 0 NOT NULL,
                                              count numeric(8, 0),
                                              image_url varchar(40),
-                                             PRIMARY KEY(id)
+     CREATE TABLE payment
+(
+    id         UUID NOT NULL,
+    authorized BOOLEAN,
+    message    VARCHAR(255),
+    CONSTRAINT pk_payment PRIMARY KEY (id)
+);
+                                        PRIMARY KEY(id)
 );
 
 create TABLE IF NOT EXISTS ecomm.tag (
@@ -231,3 +239,205 @@ INSERT INTO ecomm.order_item VALUES
                                  ('efeefa71-2760-412a-9ec8-0a040d90f02c', '0a59ba9f-629e-4445-8129-b9bce1985d6a', 'a7384042-e4aa-4c93-85ae-31a346dad705');
 
 
+
+CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE address
+(
+    id        UUID NOT NULL,
+    number    VARCHAR(255),
+    residence VARCHAR(255),
+    street    VARCHAR(255),
+    city      VARCHAR(255),
+    state     VARCHAR(255),
+    country   VARCHAR(255),
+    zipcode   VARCHAR(255),
+    CONSTRAINT pk_address PRIMARY KEY (id)
+);
+
+CREATE TABLE "authorization"
+(
+    id         UUID NOT NULL,
+    authorized BOOLEAN,
+    time       TIMESTAMP,
+    message    VARCHAR(255),
+    error      VARCHAR(255),
+    order_id   UUID,
+    CONSTRAINT pk_authorization PRIMARY KEY (id)
+);
+
+CREATE TABLE card
+(
+    id      UUID NOT NULL,
+    number  VARCHAR(255),
+    expires VARCHAR(255),
+    cvv     VARCHAR(255),
+    user_id UUID,
+    CONSTRAINT pk_card PRIMARY KEY (id)
+);
+
+CREATE TABLE cart
+(
+    id      UUID NOT NULL,
+    user_id UUID,
+    CONSTRAINT pk_cart PRIMARY KEY (id)
+);
+
+CREATE TABLE cart_item
+(
+    cart_id UUID NOT NULL,
+    item_id UUID NOT NULL
+);
+
+CREATE TABLE item
+(
+    id         UUID NOT NULL,
+    quantity   INT,
+    product_id UUID,
+    unit_price DECIMAL,
+    CONSTRAINT pk_item PRIMARY KEY (id)
+);
+
+CREATE TABLE "order"
+(
+    id          UUID NOT NULL,
+    total       DECIMAL,
+    status      VARCHAR(255),
+    customer_id UUID NOT NULL,
+    address_id  UUID,
+    payment_id  UUID,
+    shipment_id UUID,
+    card_id     UUID,
+    order_date  TIMESTAMP,
+    CONSTRAINT pk_order PRIMARY KEY (id)
+);
+
+CREATE TABLE order_item
+(
+    item_id  UUID NOT NULL,
+    order_id UUID NOT NULL
+);
+
+CREATE TABLE order_item_entity
+(
+    id       UUID NOT NULL,
+    order_id UUID,
+    item_id  UUID,
+    CONSTRAINT pk_orderitementity PRIMARY KEY (id)
+);
+
+CREATE TABLE payment
+(
+    id         UUID NOT NULL,
+    authorized BOOLEAN,
+    message    VARCHAR(255),
+    CONSTRAINT pk_payment PRIMARY KEY (id)
+);
+
+CREATE TABLE product
+(
+    id          UUID NOT NULL,
+    name        VARCHAR(255),
+    description VARCHAR(255),
+    price       DECIMAL,
+    image_url   VARCHAR(255),
+    count       INT,
+    CONSTRAINT pk_product PRIMARY KEY (id)
+);
+
+CREATE TABLE product_tag
+(
+    product_id UUID NOT NULL,
+    tag_id     UUID NOT NULL
+);
+
+CREATE TABLE shipment
+(
+    id                      UUID NOT NULL,
+    estimated_delivery_date TIMESTAMP,
+    carrier                 VARCHAR(255),
+    CONSTRAINT pk_shipment PRIMARY KEY (id)
+);
+
+CREATE TABLE tag
+(
+    id   UUID NOT NULL,
+    name VARCHAR(255),
+    CONSTRAINT pk_tag PRIMARY KEY (id)
+);
+
+CREATE TABLE "user"
+(
+    id          UUID NOT NULL,
+    username    VARCHAR(255),
+    password    VARCHAR(255),
+    first_name  VARCHAR(255),
+    last_name   VARCHAR(255),
+    email       VARCHAR(255),
+    phone       VARCHAR(255),
+    user_status VARCHAR(255),
+    CONSTRAINT pk_user PRIMARY KEY (id)
+);
+
+CREATE TABLE user_address
+(
+    address_id UUID NOT NULL,
+    user_id    UUID NOT NULL
+);
+
+ALTER TABLE product_tag
+    ADD CONSTRAINT uc_product_tag_tag UNIQUE (tag_id);
+
+ALTER TABLE user_address
+    ADD CONSTRAINT uc_user_address_address UNIQUE (address_id);
+
+ALTER TABLE "authorization"
+    ADD CONSTRAINT FK_AUTHORIZATION_ON_ORDER FOREIGN KEY (order_id) REFERENCES "order" (id);
+
+ALTER TABLE card
+    ADD CONSTRAINT FK_CARD_ON_USER FOREIGN KEY (user_id) REFERENCES "user" (id);
+
+ALTER TABLE cart
+    ADD CONSTRAINT FK_CART_ON_USER FOREIGN KEY (user_id) REFERENCES "user" (id);
+
+ALTER TABLE item
+    ADD CONSTRAINT FK_ITEM_ON_PRODUCT FOREIGN KEY (product_id) REFERENCES product (id);
+
+ALTER TABLE "order"
+    ADD CONSTRAINT FK_ORDER_ON_ADDRESS FOREIGN KEY (address_id) REFERENCES address (id);
+
+ALTER TABLE "order"
+    ADD CONSTRAINT FK_ORDER_ON_CARD FOREIGN KEY (card_id) REFERENCES card (id);
+
+ALTER TABLE "order"
+    ADD CONSTRAINT FK_ORDER_ON_CUSTOMER FOREIGN KEY (customer_id) REFERENCES "user" (id);
+
+ALTER TABLE "order"
+    ADD CONSTRAINT FK_ORDER_ON_PAYMENT FOREIGN KEY (payment_id) REFERENCES payment (id);
+
+ALTER TABLE "order"
+    ADD CONSTRAINT FK_ORDER_ON_SHIPMENT FOREIGN KEY (shipment_id) REFERENCES shipment (id);
+
+ALTER TABLE cart_item
+    ADD CONSTRAINT fk_cart_item_on_cart_entity FOREIGN KEY (cart_id) REFERENCES cart (id);
+
+ALTER TABLE cart_item
+    ADD CONSTRAINT fk_cart_item_on_item_entity FOREIGN KEY (item_id) REFERENCES item (id);
+
+ALTER TABLE order_item
+    ADD CONSTRAINT fk_ordite_on_item_entity FOREIGN KEY (item_id) REFERENCES item (id);
+
+ALTER TABLE order_item
+    ADD CONSTRAINT fk_ordite_on_order_entity FOREIGN KEY (order_id) REFERENCES "order" (id);
+
+ALTER TABLE product_tag
+    ADD CONSTRAINT fk_protag_on_product_entity FOREIGN KEY (product_id) REFERENCES product (id);
+
+ALTER TABLE product_tag
+    ADD CONSTRAINT fk_protag_on_tag_entity FOREIGN KEY (tag_id) REFERENCES tag (id);
+
+ALTER TABLE user_address
+    ADD CONSTRAINT fk_useadd_on_address_entity FOREIGN KEY (address_id) REFERENCES address (id);
+
+ALTER TABLE user_address
+    ADD CONSTRAINT fk_useadd_on_user_entity FOREIGN KEY (user_id) REFERENCES "user" (id);

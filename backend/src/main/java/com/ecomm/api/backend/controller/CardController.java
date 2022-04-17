@@ -1,4 +1,6 @@
 package com.ecomm.api.backend.controller;
 
-public class CardController {
+import com.ecommerce.api.CardApi;
+
+public class CardController implements CardApi {
 }

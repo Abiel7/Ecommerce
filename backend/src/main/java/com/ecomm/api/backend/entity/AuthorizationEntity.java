@@ -10,23 +10,23 @@ public class AuthorizationEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID" ,updatable = false, nullable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "AUTHORIZED")
+    @Column(name="AUTHORIZED")
     private boolean authorized;
 
-    @Column(name = "TIME")
+    @Column(name="TIME")
     private Timestamp time;
 
     @Column(name = "MESSAGE")
     private String message;
 
-    @Column(name ="ERROR")
+    @Column(name = "ERROR")
     private String error;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "id")
     private OrderEntity orderEntity;
 
     public UUID getId() {
@@ -82,7 +82,4 @@ public class AuthorizationEntity {
         this.orderEntity = orderEntity;
         return this;
     }
-
-
-
 }

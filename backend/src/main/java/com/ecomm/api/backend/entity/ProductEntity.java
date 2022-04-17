@@ -1,34 +1,36 @@
 package com.ecomm.api.backend.entity;
 
-import com.ecommerce.api.model.Product;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
 @Entity
 @Table(name = "product")
 public class ProductEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID", nullable = false, updatable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private UUID id;
+
+    @NotNull(message = "Product name is required.")
+    @Basic(optional = false)
     @Column(name = "NAME")
     private String name;
+
     @Column(name = "DESCRIPTION")
     private String description;
+
     @Column(name = "PRICE")
     private BigDecimal price;
-    @Column(name = "IMAGE_URL")
-    private String imageUrl;
-    @Column(name ="COUNT")
+
+    @Column(name = "COUNT")
     private int count;
 
+    @Column(name = "IMAGE_URL")
+    private String imageUrl;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -36,32 +38,37 @@ public class ProductEntity {
             joinColumns = @JoinColumn(name = "PRODUCT_ID"),
             inverseJoinColumns = @JoinColumn(name = "TAG_ID")
     )
-    public List<TagEntity> tags = Collections.emptyList();
+    private List<TagEntity> tags = Collections.emptyList();;
 
     @OneToMany(mappedBy = "product")
     private List<ItemEntity> items;
 
-    public ProductEntity() {}
-
-    public ProductEntity(UUID id , @NotNull(message = "product name cannot be null") String name, String description, BigDecimal price, String imageUrl, int count) {
+    public ProductEntity(UUID id, @NotNull(message = "Product name is required.") String name,
+                         String description, BigDecimal price, int count, String imageUrl) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.price = price;
-        this.imageUrl = imageUrl;
+        this.description = description;
         this.count = count;
+        this.imageUrl = imageUrl;
     }
 
-    public  UUID getId() {
+    public ProductEntity() {
+    }
+
+    public UUID getId() {
         return id;
     }
+
     public ProductEntity setId(UUID id) {
         this.id = id;
         return this;
     }
+
     public String getName() {
         return name;
     }
+
     public ProductEntity setName(String name) {
         this.name = name;
         return this;
@@ -70,6 +77,7 @@ public class ProductEntity {
     public String getDescription() {
         return description;
     }
+
     public ProductEntity setDescription(String description) {
         this.description = description;
         return this;
@@ -111,16 +119,12 @@ public class ProductEntity {
         return this;
     }
 
-    public List<ItemEntity> getItems() {
+    public List<ItemEntity> getItem() {
         return items;
     }
 
-    public ProductEntity setItems(List<ItemEntity> items) {
-        this.items = items;
+    public ProductEntity setItem(List<ItemEntity> item) {
+        this.items = item;
         return this;
     }
-
-
-
-
 }

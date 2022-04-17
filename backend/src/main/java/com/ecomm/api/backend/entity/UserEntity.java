@@ -1,7 +1,5 @@
 package com.ecomm.api.backend.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
@@ -10,7 +8,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "user")
-@Data
 public class UserEntity {
     @Id
     @GeneratedValue
@@ -38,7 +35,7 @@ public class UserEntity {
     private String phone;
 
     @Column(name = "USER_STATUS")
-    private String userStatus;
+    private String userStatus = "ACTIVE";
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
@@ -47,7 +44,6 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID")
     )
     private List<AddressEntity> addresses = Collections.emptyList();;
-
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CardEntity> cards;
@@ -165,5 +161,24 @@ public class UserEntity {
     public UserEntity setOrder(List<OrderEntity> order) {
         this.orders = order;
         return this;
+    }
+
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userStatus='" + userStatus + '\'' +
+                ", addresses=" + addresses +
+                ", cards=" + cards +
+                ", cart=" + cart +
+                ", orders=" + orders +
+                '}';
     }
 }

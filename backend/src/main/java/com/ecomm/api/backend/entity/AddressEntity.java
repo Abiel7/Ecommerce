@@ -4,20 +4,19 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-// create entity and use builder pattern
 @Entity
 @Table(name = "address")
 public class AddressEntity {
     @Id
     @GeneratedValue
-    @Column(name = "ID",updatable = false, nullable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "NUMBER")
     private String number;
 
-    @Column(name ="RESIDENCE")
-    private String residence;
+    @Column(name = "RESIDENCY")
+    private String residency;
 
     @Column(name = "STREET")
     private String street;
@@ -31,10 +30,10 @@ public class AddressEntity {
     @Column(name = "COUNTRY")
     private String country;
 
-    @Column(name = "ZIPCODE")
-    private String zipCode;
+    @Column(name = "PINCODE")
+    private String pincode;
 
-    @OneToMany(mappedBy="addressEntity",fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "addressEntity", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<OrderEntity> orders;
 
     public UUID getId() {
@@ -55,12 +54,12 @@ public class AddressEntity {
         return this;
     }
 
-    public String getResidence() {
-        return residence;
+    public String getResidency() {
+        return residency;
     }
 
-    public AddressEntity setResidence(String residence) {
-        this.residence = residence;
+    public AddressEntity setResidency(String residency) {
+        this.residency = residency;
         return this;
     }
 
@@ -100,12 +99,12 @@ public class AddressEntity {
         return this;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public String getPincode() {
+        return pincode;
     }
 
-    public AddressEntity setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public AddressEntity setPincode(String pincode) {
+        this.pincode = pincode;
         return this;
     }
 

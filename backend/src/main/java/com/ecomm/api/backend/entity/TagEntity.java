@@ -7,14 +7,16 @@ import java.util.UUID;
 @Entity
 @Table(name = "tag")
 public class TagEntity {
+
     @Id
     @GeneratedValue
-    @Column(name="ID", nullable = false,updatable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private UUID id;
-    @NotNull(message = "Tag name cannot be null")
+
+    @NotNull(message = "Product name is required.")
     @Basic(optional = false)
-    @Column(name ="NAME")
-    private  String name;
+    @Column(name = "NAME")
+    private String name;
 
     public UUID getId() {
         return id;
@@ -33,11 +35,7 @@ public class TagEntity {
         this.name = name;
         return this;
     }
-
 }
-
-
-
 
 
 

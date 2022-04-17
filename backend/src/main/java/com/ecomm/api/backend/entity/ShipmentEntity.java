@@ -7,13 +7,14 @@ import java.util.UUID;
 @Entity
 @Table(name = "shipment")
 public class ShipmentEntity {
-
     @Id
     @GeneratedValue
-    @Column(name= "ID", nullable = false, updatable = false)
+    @Column(name = "ID", updatable = false, nullable = false)
     private UUID id;
-    @Column(name ="ESTIMATED_DELIVERY_DATE")
-    private Timestamp estimatedDeliveryDate;
+
+    @Column(name = "EST_DELIVERY_DATE")
+    private Timestamp estDeliveryDate;
+
     @Column(name = "CARRIER")
     private String carrier;
 
@@ -26,12 +27,12 @@ public class ShipmentEntity {
         return this;
     }
 
-    public Timestamp getEstimatedDeliveryDate() {
-        return estimatedDeliveryDate;
+    public Timestamp getEstDeliveryDate() {
+        return estDeliveryDate;
     }
 
-    public ShipmentEntity setEstimatedDeliveryDate(Timestamp estimatedDeliveryDate) {
-        this.estimatedDeliveryDate = estimatedDeliveryDate;
+    public ShipmentEntity setEstDeliveryDate(Timestamp estDeliveryDate) {
+        this.estDeliveryDate = estDeliveryDate;
         return this;
     }
 
@@ -43,6 +44,5 @@ public class ShipmentEntity {
         this.carrier = carrier;
         return this;
     }
-
 
 }

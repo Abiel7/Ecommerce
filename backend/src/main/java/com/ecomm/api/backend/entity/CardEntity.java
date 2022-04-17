@@ -1,7 +1,5 @@
 package com.ecomm.api.backend.entity;
 
-import com.ecommerce.api.model.Order;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -26,6 +24,7 @@ public class CardEntity {
     @ManyToOne()
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private UserEntity user;
+
     @OneToMany(mappedBy = "cardEntity", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<OrderEntity> orders;
 

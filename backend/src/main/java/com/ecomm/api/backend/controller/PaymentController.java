@@ -1,4 +1,6 @@
 package com.ecomm.api.backend.controller;
 
-public class PaymentController {
+import com.ecommerce.api.PaymentApi;
+
+public class PaymentController implements PaymentApi {
 }

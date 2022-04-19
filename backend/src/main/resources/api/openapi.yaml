@@ -44,13 +44,9 @@ paths:
           content:
             application/xml:
               schema:
-                type: array
-                items:
                   $ref: '#/components/schemas/Cart'
             application/json:
               schema:
-                type: array
-                items:
                   $ref: '#/components/schemas/Cart'
         400:
           description: Given customer id does not exist
@@ -211,13 +207,11 @@ paths:
           content:
             application/xml:
               schema:
-                type: array
-                items:
+
                  $ref: '#/components/schemas/Item'
             application/json:
               schema:
-                type: array
-                items:
+
                   $ref: '#/components/schemas/Item'
         400:
           description: item does not exists operation failed
@@ -545,7 +539,7 @@ paths:
         - card
       summary: Returns all users card
       description: Returns all user's cards
-      operationId: getCards
+      operationId: getAllCards
       responses:
         200:
           description: successfull fetch
@@ -956,6 +950,8 @@ components:
           type: string
         ccv:
           description: ccv code of a card
+          type: string
+        userId:
           type: string
       xml:
         name: Card

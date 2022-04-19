@@ -1,33 +1,42 @@
 package com.ecomm.api.backend.controller;
 
 
+import com.ecomm.api.backend.entity.UserEntity;
+import com.ecomm.api.backend.hateoas.CartRepresentation;
+import com.ecomm.api.backend.repository.UserRepository;
 import com.ecomm.api.backend.service.CartService;
 
 import com.ecommerce.api.CartApi;
 import com.ecommerce.api.model.Cart;
 import com.ecommerce.api.model.Item;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.ResponseEntity.accepted;
 import static org.springframework.http.ResponseEntity.ok;
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-import static org.springframework.http.ResponseEntity.ok;
 @RestController
 public class CartsController implements CartApi {
 
      private static final Logger log = LoggerFactory.getLogger(CartsController.class);
 
      private CartService cartService;
+     private CartRepresentation cartRepresentationAssembler;
+
+
+     public  CartsController(CartService cartService,CartRepresentation cartRepresentationAssembler) {
+          this.cartService = cartService;
+          this.cartRepresentationAssembler = cartRepresentationAssembler;
+    }
 
      @Override
      public ResponseEntity<List<Item>> addCartItemsByCustomerId(String customerId, Item item) {
@@ -53,8 +62,8 @@ public class CartsController implements CartApi {
      }
 
      @Override
-     public ResponseEntity<List<Cart>> getCartByCustomerId(String customerId) {
-          return null;
+     public ResponseEntity<Cart> getCartByCustomerId(String customerId) {
+          return ok(cartRepresentationAssembler.toModel(cartService.getCartByCustomerId(customerId)));
      }
 
      @Override
@@ -63,14 +72,13 @@ public class CartsController implements CartApi {
      }
 
      @Override
-     public ResponseEntity<List<Item>> getCartItemsByItemId(String customerId, String itemId) {
-          return  null ;//ok(cartService.getCartItemsByItemId(customerId, itemId));
+     public ResponseEntity<Item> getCartItemsByItemId(String customerId, String itemId) {
+          return  ok(cartService.getCartItemsByItemId(customerId,itemId));
      }
 
-     // test  mapping
-     @GetMapping(value="/hello", produces = MediaType.TEXT_PLAIN_VALUE)
-     public ResponseEntity<String> test() {
-          return ok("test");
-     }
+
+
+
+
 }
 

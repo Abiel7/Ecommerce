@@ -1,4 +1,6 @@
 package com.ecomm.api.backend.controller;
 
-public class ProductController {
+import com.ecommerce.api.ProductApi;
+
+public class ProductController implements ProductApi {
 }

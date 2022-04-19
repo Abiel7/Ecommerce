@@ -31,12 +31,11 @@ public class CartsController implements CartApi {
 
      private CartService cartService;
      private CartRepresentation cartRepresentationAssembler;
-     private UserRepository cartRepository;
 
-     public  CartsController(CartService cartService,CartRepresentation cartRepresentationAssembler, UserRepository cartRepository) {
+
+     public  CartsController(CartService cartService,CartRepresentation cartRepresentationAssembler) {
           this.cartService = cartService;
           this.cartRepresentationAssembler = cartRepresentationAssembler;
-          this.cartRepository = cartRepository;
     }
 
      @Override
@@ -77,15 +76,7 @@ public class CartsController implements CartApi {
           return  ok(cartService.getCartItemsByItemId(customerId,itemId));
      }
 
-     @GetMapping("/api/v1/getcustomers")
-    public Iterable<UserEntity>  findCustomer() {
-         return  cartRepository.findAll();
-     }
 
-     @GetMapping("/api/v1/getuserById{id}")
-    public Optional<UserEntity> getUserById( @PathVariable String id) {
-         return cartRepository.findById(UUID.fromString(id));
-     }
 
 
 

@@ -539,7 +539,7 @@ paths:
         - card
       summary: Returns all users card
       description: Returns all user's cards
-      operationId: getCards
+      operationId: getAllCards
       responses:
         200:
           description: successfull fetch
@@ -950,6 +950,8 @@ components:
           type: string
         ccv:
           description: ccv code of a card
+          type: string
+        userId:
           type: string
       xml:
         name: Card

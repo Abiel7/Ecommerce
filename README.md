@@ -7,4 +7,5 @@ This is a fullstack ecommerce application. API(backend) for this apllication is 
 ![image](https://user-images.githubusercontent.com/56592834/156747919-e2bde18a-8f8f-473c-a2b2-8a968ef08877.png)
 
 # DATABASE
-<img src="https://user-images.githubusercontent.com/56592834/164649506-679da956-401e-47a5-b76c-2d2aa4e5ed52.png" alt="ERDiagram" style="width:auto; height:200px;"/>
+
+![image](https://user-images.githubusercontent.com/56592834/164650243-a781d537-2b91-4158-a0e8-f25756b1fc54.png)

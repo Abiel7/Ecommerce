@@ -4,7 +4,9 @@ import com.ecomm.api.backend.controller.ProductController;
 import com.ecomm.api.backend.entity.ProductEntity;
 import com.ecommerce.api.model.Product;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductRepresentation extends RepresentationModelAssemblerSupport<ProductEntity, Product> {
 
 

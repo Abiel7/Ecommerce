@@ -648,7 +648,7 @@ paths:
         - payment
       summary: Return the payment authorization
       description: Returns the payment authorization for specified order
-      operationId: getOrderPaymentAuthotization
+      operationId: getOrderPaymentAuthorization
       parameters:
         - name: id
           in: query
@@ -719,7 +719,7 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/Shipment'
-  /api/v1/product:
+  /api/v1/products:
     get:
       tags:
         - product
@@ -969,6 +969,9 @@ components:
       description: payment information
       type: object
       properties:
+        id:
+          description: order id
+          type: string
         authorized:
           description: check if a payment is  authorized before
           type: boolean
@@ -1124,7 +1127,18 @@ components:
         tag:
           description: tag associated with the product
           type: array
-          uniqueItems: true
           items:
-            type: string
+            $ref: '#/components/schemas/Tag'
+    Tag:
+      description: Product tag
+      type: object
+      properties:
+        id:
+          description: tag identifier
+          type: string
+        name:
+          description: tag name
+          type: string
+
+
 

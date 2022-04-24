@@ -7,12 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
-
 @Repository
-public interface OrderRepository extends CrudRepository<OrderEntity, UUID>,OrderRepositoryExt {
+public interface OrderRepository extends CrudRepository<OrderEntity, UUID>, OrderRepositoryExt {
 
     @Query("select o from OrderEntity o join o.userEntity u where u.id = :customerId")
-    public Iterable<OrderEntity> findBCustomerId(@Param("customerId") UUID customerId);
+     Iterable<OrderEntity> findByCustomerId(@Param("customerId") UUID customerId);
 }
 
 

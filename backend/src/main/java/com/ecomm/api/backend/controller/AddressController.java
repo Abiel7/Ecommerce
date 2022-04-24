@@ -22,9 +22,9 @@ public class AddressController implements AddressApi {
     private final AddressRepresentation addressRepresentationAssembler;
 
 
-    public AddressController(AddressService addressService, AddressRepresentation addressRepresentationassembler) {
+    public AddressController(AddressService addressService, AddressRepresentation addressRepresentationAssembler) {
         this.addressService = addressService;
-        this.addressRepresentationAssembler = addressRepresentationassembler;
+        this.addressRepresentationAssembler = addressRepresentationAssembler;
     }
 
    @Override

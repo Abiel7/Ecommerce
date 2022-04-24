@@ -28,6 +28,7 @@ public class CardRepresentation extends RepresentationModelAssemblerSupport<Card
     public Card toModel(CardEntity entity) {
         String uuid= Objects.nonNull(entity.getUser()) ? entity.getUser().getId().toString() : null;
         Card resource = createModelWithId(entity.getId(), entity);
+        System.out.println(resource.toString());
         BeanUtils.copyProperties(entity, resource);
         resource.id(entity.getId().toString())
                 .cardnumber(entity.getNumber())

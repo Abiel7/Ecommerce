@@ -19,6 +19,7 @@ public class OrderEntity {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false,columnDefinition = "BINARY(16)")
+
     private UUID id;
 
     @Column(name = "TOTAL")
@@ -162,6 +163,7 @@ public class OrderEntity {
         return this;
     }
 
+/*
     @Override
     public String toString() {
         return "OrderEntity{" +
@@ -178,4 +180,13 @@ public class OrderEntity {
                 ", authorizationEntity=" + authorizationEntity +
                 '}';
     }
+
+ */
+
+    @Override
+    public String toString() {
+        return "OrderEntity";
+    }
+
+
 }

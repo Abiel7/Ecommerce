@@ -8,10 +8,10 @@ import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSuppor
 import org.springframework.stereotype.Component;
 
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.io.BufferedReader;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
@@ -24,24 +24,22 @@ public class ShipmentRepresentation  extends RepresentationModelAssemblerSupport
 
     /**
      * Creates a new {@link RepresentationModelAssemblerSupport} using the given controller class and resource type.
-     *
-
      */
     public ShipmentRepresentation() {
-        super(ShipmentController.class,Shipment.class);
+        super(ShipmentController.class, Shipment.class);
     }
 
     @Override
     public Shipment toModel(ShipmentEntity entity) {
         Shipment resource = createModelWithId(entity.getId(), entity);
-        BeanUtils.copyProperties(entity,resource);
+        BeanUtils.copyProperties(entity, resource);
         resource.setOrderid(entity.getId().toString());
         resource.add(linkTo(methodOn(ShipmentController.class).getShippingByOrderid(entity.getId().toString())).withRel("shipment_by_orderId"));
         return null;
     }
 
     public List<Shipment> toListModel(Iterable<ShipmentEntity> entities) {
-        if(Objects.isNull(entities)) {
+        if (Objects.isNull(entities)) {
             return Collections.emptyList();
 
         }

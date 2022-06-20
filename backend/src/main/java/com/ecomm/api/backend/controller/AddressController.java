@@ -12,6 +12,9 @@ import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -27,13 +30,40 @@ public class AddressController implements AddressApi {
         this.addressRepresentationAssembler = addressRepresentationAssembler;
     }
 
+    @Override
+    public Mono<ResponseEntity<Address>> createAddress(Mono<AddAddressReq> addAddressReq, ServerWebExchange exchange) {
+        return addressService.createAddress(addAddressReq)
+                .map(a -> addressRepresentationAssembler.toModel(a))
+                .map(e -> status(HttpStatus.CREATED).body(e));
+    }
+
+    @Override
+    public Mono<ResponseEntity<Void>> deleteAddressById(String id, ServerWebExchange exchange) {
+        addressService.deleteAddressById(id);
+        return accepted().build();
+    }
+
+    @Override
+    public Mono<ResponseEntity<Address>> getAddressById(String id, ServerWebExchange exchange) {
+       return addressService.getAddressById(id).map(addressRepresentationAssembler::toModel)
+                .map(ResponseEntity::ok)
+                .orElse(notFound().build());
+
+    }
+
+    @Override
+    public Mono<ResponseEntity<Flux<Address>>> getAddresses(ServerWebExchange exchange) {
+        return null;
+    }
+
+    /*
    @Override
    public ResponseEntity<Address> createAddress(AddAddressReq addAddressReq) {
       return status(HttpStatus.CREATED).body(addressService.createAddress(addAddressReq).map(addressRepresentationAssembler::toModel).get());
    }
 
    @Override
-   public ResponseEntity<Void> deleteAddressById(String id) {
+   public  Mono<ResponseEntity<Void>>  deleteAddressById(String id) {
        addressService.deleteAddressById(id);
       return accepted().build();
    }
@@ -50,4 +80,6 @@ public class AddressController implements AddressApi {
    public ResponseEntity<List<Address>> getAddresses() {
       return ok(addressRepresentationAssembler.toListModel(addressService.getAllAddresses()));
    }
+
+     */
 }

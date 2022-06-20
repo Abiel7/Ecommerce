@@ -2,7 +2,6 @@ package com.ecomm.api.backend.hateoas;
 import com.ecomm.api.backend.controller.ProductController;
 import com.ecomm.api.backend.entity.ProductEntity;
 import com.ecommerce.api.model.Product;
-import com.ecommerce.api.model.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
@@ -30,7 +29,7 @@ public class ProductRepresentation extends RepresentationModelAssemblerSupport<P
         Product resource = createModelWithId(entity.getId(), entity);
         BeanUtils.copyProperties(entity, resource);
         resource.setId(entity.getId().toString());
-        resource.setTag(entity.getTags().stream().map(t -> new Tag().id(t.getId().toString()).name(t.getName())).collect(toList()));
+        //resource.setTag(entity.getTags().stream().map(t -> new Tag().id(t.getId().toString()).name(t.getName())).collect(toList()));
 
         resource.add(linkTo(methodOn(ProductController.class).getProduct(entity.getId().toString())).withSelfRel());
         //resource.add(linkTo(methodOn(ProductController.class).queryProducts(null, null,1,10)).withRel("products"));

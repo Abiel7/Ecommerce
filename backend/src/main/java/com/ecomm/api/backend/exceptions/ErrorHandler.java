@@ -28,7 +28,8 @@ import static javax.xml.transform.OutputKeys.MEDIA_TYPE;
  * the request and response processing By the controller
  * it also has the ability to handle exception  by marking it with
  * @ExceptionHandler
- * every time an  exception  occurs on of ths exception tagged  with  specific exception    will be  triggered and  show  human-readable  errors
+ * every time an  exception  occurs on of ths exception tagged  with  specific exception
+ * will be  triggered and  show  human-readable  errors
  */
 @ControllerAdvice
 public class ErrorHandler {

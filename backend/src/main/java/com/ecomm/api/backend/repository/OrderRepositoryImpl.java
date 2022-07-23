@@ -28,6 +28,12 @@ import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * The persistence context is just a synchronizer object that tracks the state of a
+ * limited set of Java objects and makes sure that changes on those objects are eventually
+ * persisted back into the database.
+ * by taging this class with @Transactional,  it is referring to database transaction atomicity, consistency, isolation, durability (ACID)
+ */
 @Repository
 @Transactional
 public class OrderRepositoryImpl implements OrderRepositoryExt  {
@@ -56,7 +62,7 @@ public class OrderRepositoryImpl implements OrderRepositoryExt  {
 
     /**
      *  fetch all items in the customers cart
-     *  caluclate the total price of the items in the cart
+     *  calculate the total price of the items in the cart
      *  create new order
      *  save to the database
      *  remove items from cart  since cart items are part of the order

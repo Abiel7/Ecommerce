@@ -1,7 +1,7 @@
 
 {
 
-  "library": "spring-mvc",
+  "library": "spring-boot",
   "dateLibrary": "java8",
   "hideGenerationTimestamp": true,
   "modelPackage": "com.ecommerce.api.model",
@@ -12,6 +12,9 @@
   "useGzipFeature" : true,
   "hateoas": true,
   "withXml": true,
+  "reactive": true,
+  "interfaceOnly": true,
+  "skipDefaultInterface": true,
   "importMappings": {
     "ResourceSupport":"org.springframework.hateoas.RepresentationModel",
     "Link": "org.springframework.hateoas.Link"

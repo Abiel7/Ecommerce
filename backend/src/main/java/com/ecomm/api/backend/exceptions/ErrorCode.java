@@ -8,13 +8,14 @@ public enum ErrorCode {
     HTTP_MEDIA_TYPE_NOT_ACCEPTABLE("ERROR-0004","use application/xml or application/json as accept value"),
     JSON_PARSE_ERROR("ERROR-0005","Not Valid Json object "),
     HTTP_MESSAGE_NOT_READABLE("ERROR-0006","Not valid JSON or XML object"),
-    HTTP_REQUEST_METHOD_NOT_SUPPORTED("PACKT-0007", "Request method not supported."),
-    CONSTRAINT_VIOLATION("PACKT-0008", "Validation failed."),
-    ILLEGAL_ARGUMENT_EXCEPTION("PACKT-0009", "Invalid data passed."),
-    RESOURCE_NOT_FOUND("PACKT-0010", "Requested resource not found"),
-    CUSTOMER_NOT_FOUND("PACKT-0011", "Requested customer not found"),
-    ITEM_NOT_FOUND("PACKT-0012", "Requested item not found"),
-    GENERIC_ALREADY_EXISTS("PACKT-0013", "Already exists.");
+    HTTP_REQUEST_METHOD_NOT_SUPPORTED("ERROR-0007", "Request method not supported."),
+    CONSTRAINT_VIOLATION("ERROR-0008", "Validation failed."),
+    ILLEGAL_ARGUMENT_EXCEPTION("ERROR-0009", "Invalid data passed."),
+    RESOURCE_NOT_FOUND("ERROR-0010", "Requested resource not found"),
+    CUSTOMER_NOT_FOUND("ERROR-0011", "Requested customer not found"),
+    ITEM_NOT_FOUND("ERROR-0012", "Requested item not found"),
+    GENERIC_ALREADY_EXISTS("ERROR-0013", "Already exists."),
+    CARD_ALREADY_EXISTS("ERROR-0013","Card Already Exists");
     private final String errCode;
     private final String errMsgKey;
 

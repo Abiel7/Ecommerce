@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Ecommerce app
   description: The purpose of this api is to  implment ecommerce application
-  version: 1.0.0
+  version: 1.0.0'
 tags:
   - name: cart
     description: Everything about Cart

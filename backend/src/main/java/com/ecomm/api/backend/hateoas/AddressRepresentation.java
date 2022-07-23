@@ -6,7 +6,10 @@ import com.ecommerce.api.model.Address;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
+import org.springframework.hateoas.server.reactive.ReactiveRepresentationModelAssembler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,18 +22,17 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class AddressRepresentation extends RepresentationModelAssemblerSupport<AddressEntity, Address> {
+public class AddressRepresentation implements ReactiveRepresentationModelAssembler<AddressEntity, Address>, HateoasSupport {
+    private static String serverURI = null;
     /**
      * Creates a new {@link RepresentationModelAssemblerSupport} using the given controller class and resource type.
      *
      *
      */
-    public AddressRepresentation() {
-        super(AddressController.class, Address.class);
-    }
+
 
     @Override
-    public Address toModel(AddressEntity entity) {
+    public Mono<Address> toModel(AddressEntity entity, ServerWebExchange exchange) {
         Address resource =  createModelWithId(entity.getId(), entity);
         BeanUtils.copyProperties(entity, resource);
         resource.setId(entity.getId().toString());

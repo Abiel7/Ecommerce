@@ -8,7 +8,7 @@ plugins {
 
 group = 'com.ecomm.api.backend'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_15
+sourceCompatibility = JavaVersion.VERSION_11
 
 swaggerSources {
     def typeMappings = 'URI=URI, BigDecimal=BigDecimal, EntityModel=EntityModel'

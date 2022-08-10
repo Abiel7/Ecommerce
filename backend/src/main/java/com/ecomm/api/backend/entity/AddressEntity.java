@@ -17,7 +17,6 @@ public class AddressEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID id;
-
     @Column(name = "NUMBER")
     private String number;
 

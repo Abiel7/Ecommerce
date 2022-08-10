@@ -4,6 +4,8 @@ import com.ecomm.api.backend.entity.AddressEntity;
 import com.ecomm.api.backend.repository.AddressRepository;
 import com.ecommerce.api.model.AddAddressReq;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -18,23 +20,23 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Optional<AddressEntity> createAddress(AddAddressReq addAddressReq) {
-        return Optional.of(addressRepository.save(toEntity(addAddressReq)));
+    public Mono<AddressEntity> createAddress(Mono<AddAddressReq> addAddressReq) {
+        return null;
     }
 
     @Override
-    public void deleteAddressById(String id) {
+    public Mono<Void> deleteAddressById(String id) {
         addressRepository.deleteById(UUID.fromString(id));
-
+        return Mono.empty();
     }
 
     @Override
-    public Optional<AddressEntity> getAddressById(String id) {
+    public Mono<AddressEntity> getAddressById(String id) {
         return addressRepository.findById(UUID.fromString(id));
     }
 
     @Override
-    public Iterable<AddressEntity> getAllAddresses() {
+    public Flux<AddressEntity> getAllAddresses() {
         return addressRepository.findAll();
     }
 

@@ -6,11 +6,16 @@ import com.ecomm.api.backend.entity.ItemEntity;
 import com.ecomm.api.backend.entity.OrderEntity;
 import com.ecomm.api.backend.entity.OrderItemEntity;
 import com.ecomm.api.backend.exceptions.ResourceNotFoundException;
+import com.ecomm.api.backend.service.CartService;
 import com.ecomm.api.backend.service.ItemService;
 import com.ecomm.api.backend.service.ItemServiceImpl;
 import com.ecommerce.api.model.NewOrder;
 import com.ecommerce.api.model.Order;
+import io.r2dbc.spi.ConnectionFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,84 +37,44 @@ import static java.util.stream.Collectors.toList;
  * The persistence context is just a synchronizer object that tracks the state of a
  * limited set of Java objects and makes sure that changes on those objects are eventually
  * persisted back into the database.
- * by taging this class with @Transactional,  it is referring to database transaction atomicity, consistency, isolation, durability (ACID)
+ * by tagging  this class with @Transactional,  it is referring to database transaction atomicity, consistency, isolation, durability (ACID)
  */
 @Repository
-@Transactional
+//@Transactional
 public class OrderRepositoryImpl implements OrderRepositoryExt  {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+   private ConnectionFactory connectionFactory;
+   private DatabaseClient databaseClient;
+   private ItemRepository itemRepository;
+   private CartService cartService;
+   private OrderItemRepository orderItemRepository;
 
-    private ItemRepository itemRepository;
-    private AddressRepository addressRepository;
-    private CartRepository cartRepository;
-    private OrderItemRepository orderItemRepository;
-    private ItemService itemService;
+   public  OrderRepositoryImpl( ConnectionFactory connectionFactory,
+                                ItemRepository itemRepository,
+                                OrderItemRepository orderItemRepository,
+                                CartService cartService,
+                                DatabaseClient databaseClient) {
 
+            this.connectionFactory = connectionFactory;
+            this.itemRepository = itemRepository;
+            this.orderItemRepository = orderItemRepository;
+            this.cartService = cartService;
+            this.databaseClient = databaseClient;
+   }
+    private OrderEntity toEntity(NewOrder order, CartEntity cartEntity) {
+       OrderEntity orderEntity = new OrderEntity();
 
-    public OrderRepositoryImpl (EntityManager entityManager, ItemRepository itemRepository, AddressRepository addressRepository,
-                                CartRepository cartRepository, OrderItemRepository orderItemRepository, ItemService itemService) {
-        this.entityManager = entityManager;
-        this.itemRepository = itemRepository;
-        this.addressRepository = addressRepository;
-        this.cartRepository = cartRepository;
-        this.orderItemRepository = orderItemRepository;
-        this.itemService = itemService;
-
-
+        BeanUtils.copyProperties(order, orderEntity);
+        orderEntity.setUserEntity(cartEntity.getUser());
+        orderEntity.setCartId(cartEntity.getId());
     }
-
-    /**
-     *  fetch all items in the customers cart
-     *  calculate the total price of the items in the cart
-     *  create new order
-     *  save to the database
-     *  remove items from cart  since cart items are part of the order
-     *  save order and cart items
-     *
-     * @param newOrder
-     * @return
-     */
     @Override
-    public Optional<OrderEntity> insert(NewOrder newOrder) {
-        Iterable<ItemEntity> dbItems = itemRepository.findByCustomerId(newOrder.getCustomerId());
-        List<ItemEntity> items = StreamSupport.stream(dbItems.spliterator(),false).collect(toList());
-        if(items.size() <1 ) {
-         throw new ResourceNotFoundException(String.format(" " +
-                    "No items found for customer id %s cart "  , newOrder.getCustomerId()));
-        }
-        BigDecimal total = BigDecimal.ZERO;
-        for(ItemEntity item : items) {
-            total = (BigDecimal.valueOf(item.getQuantity()).multiply(item.getPrice())).add(total);
-        }
-
-        Timestamp orderDate = Timestamp.from(Instant.now());
-        entityManager.createNativeQuery("""
-        INSERT INTO ecomm.orders (address_id, card_id, customer_id, order_date, total, status)
-        VALUES(?, ?, ?, ?, ?, ?)
-        """)
-                .setParameter(1, newOrder.getAddress().getId())
-                .setParameter(2, newOrder.getCard().getId())
-                .setParameter(3, newOrder.getCustomerId())
-                .setParameter(4, orderDate)
-                .setParameter(5, total)
-                .setParameter(6, Order.StatusEnum.CREATED.getValue())
-                .executeUpdate();
-        Optional<CartEntity> oCart = cartRepository.findByCustomerId(UUID.fromString(newOrder.getCustomerId()));
-        CartEntity cart = oCart.orElseThrow(() -> new ResourceNotFoundException(String.format("Cart not found for given customer (ID: %s)", newOrder.getCustomerId())));
-        itemRepository.deleteCartItemJoinById(cart.getItems().stream().map(i -> i.getId()).collect(toList()), cart.getId());
-        OrderEntity entity = (OrderEntity) entityManager.createNativeQuery("""
-        SELECT o.* FROM ecomm.orders o WHERE o.customer_id = ? AND o.order_date >= ?
-        """, OrderEntity.class)
-                .setParameter(1, newOrder.getCustomerId())
-                .setParameter(2, OffsetDateTime.ofInstant(orderDate.toInstant(), ZoneId.of("Z")).truncatedTo(
-                        ChronoUnit.MICROS))
-                .getSingleResult();
-        orderItemRepository.saveAll(cart.getItems().stream().map(i -> new OrderItemEntity()
-                .setOrderId(entity.getId()).setItemId(i.getId())).collect(toList()));
-
-        return Optional.of(entity);
+    public Mono<OrderEntity> insert(NewOrder m) {
+        return null;
     }
 
+    @Override
+    public Mono<OrderEntity> updateMapping(OrderEntity m) {
+        return null;
+    }
 }

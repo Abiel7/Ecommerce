@@ -62,7 +62,7 @@ public class OrderEntity {
 
     @OneToOne(mappedBy = "orderEntity")
     private AuthorizationEntity authorizationEntity;
-
+    private UUID cartId; 
     public UUID getId() {
         return id;
     }
@@ -90,6 +90,10 @@ public class OrderEntity {
         return this;
     }
 
+    public OrderEntity setCartId(UUID cartId) {
+        this.cartId = cartId;
+        return this;
+    }
     public UserEntity getUserEntity() {
         return userEntity;
     }

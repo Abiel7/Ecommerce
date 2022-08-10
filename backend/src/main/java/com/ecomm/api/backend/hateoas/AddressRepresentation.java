@@ -24,13 +24,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class AddressRepresentation implements ReactiveRepresentationModelAssembler<AddressEntity, Address>, HateoasSupport {
     private static String serverURI = null;
+
     /**
      * Creates a new {@link RepresentationModelAssemblerSupport} using the given controller class and resource type.
-     *
-     *
      */
-
-
     @Override
     public Mono<Address> toModel(AddressEntity entity, ServerWebExchange exchange) {
         Address resource =  createModelWithId(entity.getId(), entity);

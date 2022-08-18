@@ -14,7 +14,7 @@ public interface UserService {
     Mono<Void> deleteCustomerById(String id);
     Mono<Void> deleteCustomerByID(UUID id );
 
-    Flux<Iterable<AddressEntity>> getAddressesByCustomerID(String id) ;
+    Flux<AddressEntity> getAddressesByCustomerID(String id) ;
 
     Flux<UserEntity> getAllCustomers();
 

@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.OrderController;
-import com.ecomm.api.backend.entity.AfterReactiv.OrderEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.OrderEntity;
 import com.ecomm.api.backend.service.ItemService;
 import com.ecommerce.api.model.Order;
 import org.springframework.beans.BeanUtils;

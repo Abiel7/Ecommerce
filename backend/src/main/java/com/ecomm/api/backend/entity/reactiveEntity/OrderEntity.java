@@ -1,4 +1,4 @@
-package com.ecomm.api.backend.entity.AfterReactiv;
+package com.ecomm.api.backend.entity.reactiveEntity;
 
 import com.packt.modern.api.model.Order.StatusEnum;
 import java.math.BigDecimal;

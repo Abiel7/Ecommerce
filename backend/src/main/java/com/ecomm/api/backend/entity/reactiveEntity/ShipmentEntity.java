@@ -1,4 +1,4 @@
-package com.ecomm.api.backend.entity.AfterReactiv;
+package com.ecomm.api.backend.entity.reactiveEntity;
 
 import java.sql.Timestamp;
 import java.util.UUID;

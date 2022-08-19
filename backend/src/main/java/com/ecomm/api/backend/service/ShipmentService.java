@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.ShipmentEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.ShipmentEntity;
 import reactor.core.publisher.Flux;
 
 import javax.validation.constraints.Min;

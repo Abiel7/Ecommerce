@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.AddressController;
-import com.ecomm.api.backend.entity.AfterReactiv.AddressEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.AddressEntity;
 import com.ecommerce.api.model.Address;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;

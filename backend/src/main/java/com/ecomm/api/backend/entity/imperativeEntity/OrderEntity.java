@@ -1,4 +1,4 @@
-package com.ecomm.api.backend.entity.BeforeReactiv;
+package com.ecomm.api.backend.entity.imperativeEntity;
 
 
 import com.ecommerce.api.model.Order;

@@ -1,8 +1,8 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.AddressEntity;
-import com.ecomm.api.backend.entity.AfterReactiv.CardEntity;
-import com.ecomm.api.backend.entity.AfterReactiv.UserEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.AddressEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
 import com.ecomm.api.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

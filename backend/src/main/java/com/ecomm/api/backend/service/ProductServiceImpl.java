@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.ProductEntity;
-import com.ecomm.api.backend.entity.AfterReactiv.TagEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.ProductEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.TagEntity;
 import com.ecomm.api.backend.repository.ProductRepository;
 import com.ecomm.api.backend.repository.TagRepository;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.CustomerController;
-import com.ecomm.api.backend.entity.AfterReactiv.UserEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
 import com.ecommerce.api.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;

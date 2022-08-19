@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.CardEntity;
-import com.ecomm.api.backend.entity.AfterReactiv.UserEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
 import com.ecomm.api.backend.repository.CardRepository;
 import com.ecomm.api.backend.repository.UserRepository;
 import com.ecommerce.api.model.AddCardReq;

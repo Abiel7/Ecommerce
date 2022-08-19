@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.repository;
 
-import com.ecomm.api.backend.entity.AfterReactiv.OrderEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.OrderEntity;
 import com.ecommerce.api.model.NewOrder;
 import reactor.core.publisher.Mono;
 

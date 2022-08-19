@@ -1,8 +1,8 @@
 package com.ecomm.api.backend.repository;
 
-import com.ecomm.api.backend.entity.AfterReactiv.AddressEntity;
-import com.ecomm.api.backend.entity.AfterReactiv.CardEntity;
-import com.ecomm.api.backend.entity.AfterReactiv.UserEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.AddressEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;

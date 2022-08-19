@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.repository;
 
-import com.ecomm.api.backend.entity.AfterReactiv.ShipmentEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.ShipmentEntity;
 
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;

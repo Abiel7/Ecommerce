@@ -1,4 +1,4 @@
-package com.ecomm.api.backend.entity.AfterReactiv;
+package com.ecomm.api.backend.entity.reactiveEntity;
 
 import java.math.BigDecimal;
 import java.util.Collections;

@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.AuthorizationEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.AuthorizationEntity;
 import com.ecomm.api.backend.repository.OrderRepository;
 import com.ecomm.api.backend.repository.PaymentRepository;
 import com.ecommerce.api.model.PaymentReq;

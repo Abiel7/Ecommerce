@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.CartEntity;
-import com.ecomm.api.backend.entity.AfterReactiv.ItemEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.CartEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.ItemEntity;
 import com.ecomm.api.backend.exceptions.CustomerNotFoundException;
 import com.ecomm.api.backend.exceptions.GenericAlreadyExistsException;
 import com.ecomm.api.backend.exceptions.ItemNotFoundException;

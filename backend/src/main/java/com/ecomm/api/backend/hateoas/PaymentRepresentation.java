@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.PaymentController;
-import com.ecomm.api.backend.entity.AfterReactiv.PaymentEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.PaymentEntity;
 import com.ecommerce.api.model.Payment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;

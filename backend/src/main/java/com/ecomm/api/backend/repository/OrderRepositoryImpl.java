@@ -1,8 +1,8 @@
 package com.ecomm.api.backend.repository;
 
 
-import com.ecomm.api.backend.entity.AfterReactiv.CartEntity;
-import com.ecomm.api.backend.entity.AfterReactiv.OrderEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.CartEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.OrderEntity;
 import com.ecomm.api.backend.service.CartService;
 import com.ecommerce.api.model.NewOrder;
 import io.r2dbc.spi.ConnectionFactory;

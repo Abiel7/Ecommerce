@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.BeforeReactiv.ItemEntity;
-import com.ecomm.api.backend.entity.BeforeReactiv.OrderEntity;
+import com.ecomm.api.backend.entity.imperativeEntity.ItemEntity;
+import com.ecomm.api.backend.entity.imperativeEntity.OrderEntity;
 import com.ecomm.api.backend.repository.*;
 import com.ecommerce.api.model.NewOrder;
 import org.springframework.stereotype.Service;

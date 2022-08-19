@@ -1,4 +1,4 @@
-package com.ecomm.api.backend.entity.BeforeReactiv;
+package com.ecomm.api.backend.entity.imperativeEntity;
 
 
 import org.hibernate.annotations.GenericGenerator;

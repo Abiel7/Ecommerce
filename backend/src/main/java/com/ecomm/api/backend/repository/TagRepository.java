@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.repository;
 
-import com.ecomm.api.backend.entity.AfterReactiv.TagEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.TagEntity;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;

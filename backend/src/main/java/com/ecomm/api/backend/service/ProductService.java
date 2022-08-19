@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.ProductEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.ProductEntity;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.CardEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
 import com.ecommerce.api.model.AddCardReq;
 import com.ecommerce.api.model.Card;
 import reactor.core.publisher.Flux;

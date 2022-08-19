@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.AuthorizationEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.AuthorizationEntity;
 import com.ecommerce.api.model.PaymentReq;
 import reactor.core.publisher.Mono;
 

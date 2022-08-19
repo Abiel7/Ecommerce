@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AfterReactiv.AddressEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.AddressEntity;
 import com.ecommerce.api.model.AddAddressReq;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

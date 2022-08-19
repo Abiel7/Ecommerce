@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.ShipmentController;
-import com.ecomm.api.backend.entity.AfterReactiv.ShipmentEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.ShipmentEntity;
 import com.ecommerce.api.model.Shipment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;

@@ -1,12 +1,10 @@
 package com.ecomm.api.backend.repository;
 
-import com.ecomm.api.backend.entity.AddressEntity;
-import com.ecomm.api.backend.entity.CardEntity;
-import com.ecomm.api.backend.entity.UserEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.AddressEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.CardEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.UserEntity;
 import org.springframework.data.r2dbc.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

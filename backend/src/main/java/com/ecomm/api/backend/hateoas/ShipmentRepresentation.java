@@ -1,17 +1,14 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.ShipmentController;
-import com.ecomm.api.backend.entity.ShipmentEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.ShipmentEntity;
 import com.ecommerce.api.model.Shipment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 
-import java.io.BufferedReader;
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;

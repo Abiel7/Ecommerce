@@ -1,17 +1,15 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.AddressController;
-import com.ecomm.api.backend.entity.AddressEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.AddressEntity;
 import com.ecommerce.api.model.Address;
 import org.springframework.beans.BeanUtils;
-import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.hateoas.server.reactive.ReactiveRepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

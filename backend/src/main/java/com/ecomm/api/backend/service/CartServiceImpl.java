@@ -1,14 +1,12 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.CartEntity;
-import com.ecomm.api.backend.entity.ItemEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.CartEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.ItemEntity;
 import com.ecomm.api.backend.exceptions.CustomerNotFoundException;
 import com.ecomm.api.backend.exceptions.GenericAlreadyExistsException;
 import com.ecomm.api.backend.exceptions.ItemNotFoundException;
 import com.ecomm.api.backend.repository.CartRepository;
 import com.ecomm.api.backend.repository.UserRepository;
-import com.ecommerce.api.CustomerApi;
-import com.ecommerce.api.model.Cart;
 import com.ecommerce.api.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {

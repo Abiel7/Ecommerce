@@ -1,12 +1,11 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AddressEntity;
-import com.ecomm.api.backend.entity.CardEntity;
-import com.ecomm.api.backend.entity.UserEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.AddressEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.CardEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.UserEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {

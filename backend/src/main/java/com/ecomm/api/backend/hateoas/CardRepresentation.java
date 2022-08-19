@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.CardController;
-import com.ecomm.api.backend.entity.CardEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.CardEntity;
 import com.ecommerce.api.model.Card;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;

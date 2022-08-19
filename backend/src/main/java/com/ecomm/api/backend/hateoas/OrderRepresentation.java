@@ -1,10 +1,9 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.OrderController;
-import com.ecomm.api.backend.entity.OrderEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.OrderEntity;
 import com.ecomm.api.backend.service.ItemService;
 import com.ecommerce.api.model.Order;
-import com.ecommerce.api.model.Shipment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

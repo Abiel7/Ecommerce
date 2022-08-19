@@ -1,14 +1,12 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.ProductEntity;
-import com.ecommerce.api.model.Product;
+import com.ecomm.api.backend.entity.AfterReactiv.ProductEntity;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 @Validated
 public interface ProductService {

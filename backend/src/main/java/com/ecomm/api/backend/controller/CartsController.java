@@ -1,9 +1,7 @@
 package com.ecomm.api.backend.controller;
 
 
-import com.ecomm.api.backend.entity.UserEntity;
 import com.ecomm.api.backend.hateoas.CartRepresentation;
-import com.ecomm.api.backend.repository.UserRepository;
 import com.ecomm.api.backend.service.CartService;
 
 import com.ecommerce.api.CartApi;
@@ -11,18 +9,13 @@ import com.ecommerce.api.model.Cart;
 import com.ecommerce.api.model.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.ResponseEntity.accepted;
 import static org.springframework.http.ResponseEntity.ok;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 public class CartsController implements CartApi {

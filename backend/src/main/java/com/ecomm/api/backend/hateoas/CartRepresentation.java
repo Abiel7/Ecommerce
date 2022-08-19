@@ -1,9 +1,8 @@
 package com.ecomm.api.backend.hateoas;
 
 import com.ecomm.api.backend.controller.CartsController;
-import com.ecomm.api.backend.entity.CartEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.CartEntity;
 import com.ecomm.api.backend.service.ItemService;
-import com.ecommerce.api.model.Card;
 import com.ecommerce.api.model.Cart;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;

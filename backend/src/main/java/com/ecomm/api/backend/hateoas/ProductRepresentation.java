@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.hateoas;
 import com.ecomm.api.backend.controller.ProductController;
-import com.ecomm.api.backend.entity.ProductEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.ProductEntity;
 import com.ecommerce.api.model.Product;
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;

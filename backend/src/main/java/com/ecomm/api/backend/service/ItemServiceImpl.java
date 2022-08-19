@@ -1,11 +1,10 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.ItemEntity;
-import com.ecomm.api.backend.entity.ProductEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.ItemEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.ProductEntity;
 import com.ecommerce.api.model.Item;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;

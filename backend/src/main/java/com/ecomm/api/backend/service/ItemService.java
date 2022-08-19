@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.CartEntity;
-import com.ecomm.api.backend.entity.ItemEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.CartEntity;
+import com.ecomm.api.backend.entity.AfterReactiv.ItemEntity;
 import com.ecommerce.api.model.Item;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

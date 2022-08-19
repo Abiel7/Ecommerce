@@ -5,7 +5,7 @@ gen
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+backend/src/main/java/com/ecomm/api/backend/entity/BeforeReactiv
 ### STS ###
 .apt_generated
 .classpath

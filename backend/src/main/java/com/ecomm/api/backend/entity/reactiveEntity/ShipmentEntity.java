@@ -1,52 +1,50 @@
 package com.ecomm.api.backend.entity.reactiveEntity;
 
-import java.sql.Timestamp;
-import java.util.UUID;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-/**
- * @author : github.com/sharmasourabh
- * @project : Chapter05 - Modern API Development with Spring and Spring Boot
- **/
+import java.sql.Timestamp;
+import java.util.UUID;
+
+
 @Table("ecomm.shipment")
 public class ShipmentEntity {
-  @Id
-  @Column("id")
-  private UUID id;
+    @Id
+    @Column("id")
+    private UUID id;
 
-  @Column("est_delivery_date")
-  private Timestamp estDeliveryDate;
+    @Column("est_delivery_date")
+    private Timestamp estDeliveryDate;
 
-  @Column("carrier")
-  private String carrier;
+    @Column("carrier")
+    private String carrier;
 
-  public UUID getId() {
-    return id;
-  }
+    public UUID getId() {
+        return id;
+    }
 
-  public ShipmentEntity setId(UUID id) {
-    this.id = id;
-    return this;
-  }
+    public ShipmentEntity setId(UUID id) {
+        this.id = id;
+        return this;
+    }
 
-  public Timestamp getEstDeliveryDate() {
-    return estDeliveryDate;
-  }
+    public Timestamp getEstDeliveryDate() {
+        return estDeliveryDate;
+    }
 
-  public ShipmentEntity setEstDeliveryDate(Timestamp estDeliveryDate) {
-    this.estDeliveryDate = estDeliveryDate;
-    return this;
-  }
+    public ShipmentEntity setEstDeliveryDate(Timestamp estDeliveryDate) {
+        this.estDeliveryDate = estDeliveryDate;
+        return this;
+    }
 
-  public String getCarrier() {
-    return carrier;
-  }
+    public String getCarrier() {
+        return carrier;
+    }
 
-  public ShipmentEntity setCarrier(String carrier) {
-    this.carrier = carrier;
-    return this;
-  }
+    public ShipmentEntity setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
 
 }

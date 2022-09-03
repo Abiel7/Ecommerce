@@ -1,43 +1,41 @@
 package com.ecomm.api.backend.entity.reactiveEntity;
 
-import java.util.UUID;
-import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-/**
- * @author : github.com/sharmasourabh
- * @project : Chapter05 - Modern API Development with Spring and Spring Boot
- **/
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
+
+
 @Table("ecomm.user")
 public class UserEntity {
 
-  @Id
-  @Column("id")
-  private UUID id;
+    @Id
+    @Column("id")
+    private UUID id;
 
-  @NotNull(message = "User name is required.")
-  @Column("username")
-  private String username;
+    @NotNull(message = "User name is required.")
+    @Column("username")
+    private String username;
 
-  @Column("password")
-  private String password;
+    @Column("password")
+    private String password;
 
-  @Column("first_name")
-  private String firstName;
+    @Column("first_name")
+    private String firstName;
 
-  @Column("last_name")
-  private String lastName;
+    @Column("last_name")
+    private String lastName;
 
-  @Column("email")
-  private String email;
+    @Column("email")
+    private String email;
 
-  @Column("phone")
-  private String phone;
+    @Column("phone")
+    private String phone;
 
-  @Column("user_status")
-  private String userStatus;
+    @Column("user_status")
+    private String userStatus;
 
   /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinTable(
@@ -45,85 +43,85 @@ public class UserEntity {
       joinColumns = @JoinColumn(name = "USER_ID"),
       inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID")
   )*/
-  //private Flux<AddressEntity> addresses = Flux.empty();
+    //private Flux<AddressEntity> addresses = Flux.empty();
 
-  //  @OneToOne(mappedBy = "user")
-  private CardEntity card;
+    //  @OneToOne(mappedBy = "user")
+    private CardEntity card;
 
-  //  @OneToOne(mappedBy = "user")
-  private CartEntity cart;
+    //  @OneToOne(mappedBy = "user")
+    private CartEntity cart;
 
-  public UUID getId() {
-    return id;
-  }
+    public UUID getId() {
+        return id;
+    }
 
-  public UserEntity setId(UUID id) {
-    this.id = id;
-    return this;
-  }
+    public UserEntity setId(UUID id) {
+        this.id = id;
+        return this;
+    }
 
-  public String getUsername() {
-    return username;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public UserEntity setUsername(String username) {
-    this.username = username;
-    return this;
-  }
+    public UserEntity setUsername(String username) {
+        this.username = username;
+        return this;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public UserEntity setPassword(String password) {
-    this.password = password;
-    return this;
-  }
+    public UserEntity setPassword(String password) {
+        this.password = password;
+        return this;
+    }
 
-  public String getFirstName() {
-    return firstName;
-  }
+    public String getFirstName() {
+        return firstName;
+    }
 
-  public UserEntity setFirstName(String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
+    public UserEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
 
-  public String getLastName() {
-    return lastName;
-  }
+    public String getLastName() {
+        return lastName;
+    }
 
-  public UserEntity setLastName(String lastName) {
-    this.lastName = lastName;
-    return this;
-  }
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public UserEntity setEmail(String email) {
-    this.email = email;
-    return this;
-  }
+    public UserEntity setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 
-  public String getPhone() {
-    return phone;
-  }
+    public String getPhone() {
+        return phone;
+    }
 
-  public UserEntity setPhone(String phone) {
-    this.phone = phone;
-    return this;
-  }
+    public UserEntity setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
 
-  public String getUserStatus() {
-    return userStatus;
-  }
+    public String getUserStatus() {
+        return userStatus;
+    }
 
-  public UserEntity setUserStatus(String userStatus) {
-    this.userStatus = userStatus;
-    return this;
-  }
+    public UserEntity setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+        return this;
+    }
 
   /*public Flux<AddressEntity> getAddresses() {
     return addresses;
@@ -135,21 +133,21 @@ public class UserEntity {
     return this;
   }*/
 
-  public CardEntity getCard() {
-    return card;
-  }
+    public CardEntity getCard() {
+        return card;
+    }
 
-  public UserEntity setCard(CardEntity card) {
-    this.card = card;
-    return this;
-  }
+    public UserEntity setCard(CardEntity card) {
+        this.card = card;
+        return this;
+    }
 
-  public CartEntity getCart() {
-    return cart;
-  }
+    public CartEntity getCart() {
+        return cart;
+    }
 
-  public UserEntity setCart(CartEntity cart) {
-    this.cart = cart;
-    return this;
-  }
+    public UserEntity setCart(CartEntity cart) {
+        this.cart = cart;
+        return this;
+    }
 }

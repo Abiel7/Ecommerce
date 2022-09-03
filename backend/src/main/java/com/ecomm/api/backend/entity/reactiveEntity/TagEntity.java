@@ -1,43 +1,40 @@
 package com.ecomm.api.backend.entity.reactiveEntity;
 
-import java.util.UUID;
-import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-/**
- * @author : github.com/sharmasourabh
- * @project : Chapter05 - Modern API Development with Spring and Spring Boot
- **/
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
+
 
 @Table("ecomm.tag")
 public class TagEntity {
 
-  @Id
-  @Column("id")
-  private UUID id;
+    @Id
+    @Column("id")
+    private UUID id;
 
-  @NotNull(message = "Product name is required.")
+    @NotNull(message = "Product name is required.")
 //  @Basic(optional = false)
-  @Column("name")
-  private String name;
+    @Column("name")
+    private String name;
 
-  public UUID getId() {
-    return id;
-  }
+    public UUID getId() {
+        return id;
+    }
 
-  public TagEntity setId(UUID id) {
-    this.id = id;
-    return this;
-  }
+    public TagEntity setId(UUID id) {
+        this.id = id;
+        return this;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public TagEntity setName(String name) {
-    this.name = name;
-    return this;
-  }
+    public TagEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
 }

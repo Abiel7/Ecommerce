@@ -1,24 +1,56 @@
 package com.ecomm.api.backend.service;
 
 import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
-import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
 import com.ecomm.api.backend.repository.CardRepository;
 import com.ecomm.api.backend.repository.UserRepository;
 import com.ecommerce.api.model.AddCardReq;
+import com.ecommerce.api.model.Card;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CardServiceImpl  implements  CardService{
+public class CardServiceImpl implements CardService {
     CardRepository cardRepository;
     UserRepository userRepository;
 
-    public CardServiceImpl(CardRepository cardRepository,UserRepository userRepository) {
-        this.cardRepository= cardRepository;
-        this.userRepository= userRepository;
+    public CardServiceImpl(CardRepository cardRepository, UserRepository userRepository) {
+        this.cardRepository = cardRepository;
+        this.userRepository = userRepository;
     }
+
+    @Override
+    public Mono<Void> deleteCardById(String id) {
+        return null;
+    }
+
+    @Override
+    public Mono<Void> delteCardByID(UUID id) {
+        return null;
+    }
+
+    @Override
+    public Flux<Card> getAllCards() {
+        return null;
+    }
+
+    @Override
+    public Mono<CardEntity> getCardById(String id) {
+        return null;
+    }
+
+    @Override
+    public Mono<CardEntity> registerCard(Mono<AddCardReq> addCardReq) {
+        return null;
+    }
+
+    @Override
+    public CardEntity toEntity(AddCardReq model) {
+        return null;
+    }
+    /*
     @Override
     public Iterable<CardEntity> getAllCards() {
         return cardRepository.findAll();
@@ -50,4 +82,6 @@ public class CardServiceImpl  implements  CardService{
                 .setCvv(addCardReq.getCcv())
                 .setExpires(addCardReq.getExpires());
     }
+
+     */
 }

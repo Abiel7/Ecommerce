@@ -7,16 +7,14 @@ import com.ecomm.api.backend.service.CartService;
 import com.ecommerce.api.model.NewOrder;
 import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
-import  java.util.stream.Collectors;
-
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 /**
@@ -27,32 +25,34 @@ import java.util.UUID;
  */
 @Repository
 //@Transactional
-public class OrderRepositoryImpl implements OrderRepositoryExt  {
+public class OrderRepositoryImpl implements OrderRepositoryExt {
 
-   private ConnectionFactory connectionFactory;
-   private DatabaseClient dbaseClient;
-   private ItemRepository itemRepository;
-   private CartService cartService;
-   private OrderItemRepository orderItemRepository;
+    private ConnectionFactory connectionFactory;
 
-   public  OrderRepositoryImpl( ConnectionFactory connectionFactory,
-                                ItemRepository itemRepository,
-                                OrderItemRepository orderItemRepository,
-                                CartService cartService,
-                                DatabaseClient databaseClient) {
+    private ItemRepository itemRepository;
+    private CartService cartService;
+    private OrderItemRepository orderItemRepository;
 
-            this.connectionFactory = connectionFactory;
-            this.itemRepository = itemRepository;
-            this.orderItemRepository = orderItemRepository;
-            this.cartService = cartService;
-            this.dbaseClient = databaseClient;
-   }
-    private OrderEntity toEntity(NewOrder order, CartEntity cartEntity) {
-       OrderEntity orderEntity = new OrderEntity();
-        /*
-        populating orderEntity
+    public OrderRepositoryImpl(ConnectionFactory connectionFactory,
+                               ItemRepository itemRepository,
+                               OrderItemRepository orderItemRepository,
+                               CartService cartService
+    ) {
+
+        this.connectionFactory = connectionFactory;
+        this.itemRepository = itemRepository;
+        this.orderItemRepository = orderItemRepository;
+        this.cartService = cartService;
+
+    }/*
+        populating orderEntity by using  beanutils
+
         https://www.logicbig.com/tutorials/spring-framework/spring-core/bean-utils-copy-properties.html
          */
+
+    private OrderEntity toEntity(NewOrder order, CartEntity cartEntity) {
+        OrderEntity orderEntity = new OrderEntity();
+
         BeanUtils.copyProperties(order, orderEntity);
         orderEntity.setUserEntity(cartEntity.getUser());
         orderEntity.setCardId(cartEntity.getId());
@@ -60,12 +60,15 @@ public class OrderRepositoryImpl implements OrderRepositoryExt  {
                 .setCustomerId(UUID.fromString(order.getCustomerId()))
                 .setAddressId(UUID.fromString(order.getAddress().getId()))
                 .setOrderDate(Timestamp.from(Instant.now()))
-                .setTotal(cartEntity.getItems().stream().collect(
-                        Collectors.toMap(k -> k.getProductId(),v -> BigDecimal.valueOf(v.get))));
-        return null;
+                .setTotal(cartEntity.getItems().stream().collect(Collectors.toMap(k -> k.getProductId(),
+                                v -> BigDecimal.valueOf(v.getQuantity()).multiply(v.getPrice())))
+                        .values().stream().reduce(BigDecimal::add).orElse(BigDecimal.ZERO));
+        return orderEntity;
     }
+
     @Override
     public Mono<OrderEntity> insert(Mono<NewOrder> m) {
+        //R2dbcEntityTemplate template = new R2dbcEntityTemplate(dbaseClient);
 
         return null;
     }

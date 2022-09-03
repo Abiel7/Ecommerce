@@ -8,8 +8,9 @@ import com.ecommerce.api.model.Shipment;
 import com.ecommerce.api.model.ShippingReq;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class ShipmentController implements ShippingApi {
@@ -17,18 +18,19 @@ public class ShipmentController implements ShippingApi {
     private ShipmentService shipmentService;
     private final ShipmentRepresentation shipmentRepresentationAssembly;
 
-    public ShipmentController (ShipmentService shipmentService, ShipmentRepresentation shipmentRepresentationAssembly) {
+    public ShipmentController(ShipmentService shipmentService, ShipmentRepresentation shipmentRepresentationAssembly) {
         this.shipmentService = shipmentService;
         this.shipmentRepresentationAssembly = shipmentRepresentationAssembly;
     }
 
+
     @Override
-    public ResponseEntity<List<Shipment>> getShippingByOrderid(String id) {
-        return ResponseEntity.ok(shipmentRepresentationAssembly.toListModel(shipmentService.getShipmentByOrderId(id)));
+    public Mono<ResponseEntity<Flux<Shipment>>> getShippingByOrderid(String id, ServerWebExchange exchange) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Authorization> shipOrder(ShippingReq shippingReq) {
-        return null; // TODO
+    public Mono<ResponseEntity<Authorization>> shipOrder(Mono<ShippingReq> shippingReq, ServerWebExchange exchange) {
+        return null;
     }
 }

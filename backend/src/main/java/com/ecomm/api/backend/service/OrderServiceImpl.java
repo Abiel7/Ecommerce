@@ -1,7 +1,7 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.imperativeEntity.ItemEntity;
-import com.ecomm.api.backend.entity.imperativeEntity.OrderEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.ItemEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.OrderEntity;
 import com.ecomm.api.backend.repository.*;
 import com.ecommerce.api.model.NewOrder;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Mono<OrderEntity> addOrder(@Valid  Mono<NewOrder> newOrder) {
-        return orderRepository.insert(newOrder);
+        return null;
     }
 
     @Override
@@ -44,11 +44,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Flux<OrderEntity> getOrdersByCustomerId(String customerId) {
-        return orderRepository.findByCustomerId(customerId)
-                .flatMap(order ->
-                        Mono.just(order)
-                                .zipWith(userRepository.findById(order.getc))
-                )
+        return null;
     }
 
     @Override

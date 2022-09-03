@@ -1,13 +1,13 @@
 package com.ecomm.api.backend.service;
 
+import com.ecomm.api.backend.entity.reactiveEntity.CartEntity;
 import com.ecomm.api.backend.entity.reactiveEntity.ItemEntity;
-import com.ecomm.api.backend.entity.reactiveEntity.ProductEntity;
 import com.ecommerce.api.model.Item;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.*;
-
-import static java.util.stream.Collectors.toList;
+import java.util.List;
 
 /**
  * @service works between controller and repository
@@ -15,12 +15,51 @@ import static java.util.stream.Collectors.toList;
  */
 @Service
 public class ItemServiceImpl implements ItemService {
+    @Override
+    public Mono<ItemEntity> toEntity(Mono<Item> item) {
+        return null;
+    }
 
+    @Override
+    public Mono<List<Item>> fluxToList(Flux<ItemEntity> items) {
+        return null;
+    }
+
+    @Override
+    public Flux<Item> toItemFlux(Mono<CartEntity> items) {
+        return null;
+    }
+
+    @Override
+    public ItemEntity toEntity(Item m) {
+        return null;
+    }
+
+    @Override
+    public List<ItemEntity> toEntityList(List<Item> items) {
+        return null;
+    }
+
+    @Override
+    public Item toModel(ItemEntity e) {
+        return null;
+    }
+
+    @Override
+    public List<Item> toModelList(List<ItemEntity> items) {
+        return null;
+    }
+
+    @Override
+    public Flux<Item> toModelFlux(List<ItemEntity> items) {
+        return null;
+    }
     /*
-    * @param itemEntity
-    * @return ItemEntity
-    * Add items with id price and quantity
+     * @param itemEntity
+     * @return ItemEntity
+     * Add items with id price and quantity
      */
+    /*
     @Override
     public ItemEntity toEntity(Item item) {
         ItemEntity itemEntity = new ItemEntity();
@@ -53,6 +92,8 @@ public class ItemServiceImpl implements ItemService {
         }
         return items.stream().map(this::toModel).collect(toList());
     }
+
+     */
 }
 
 

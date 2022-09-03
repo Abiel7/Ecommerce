@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
-
+import com.ecomm.api.backend.entity.reactiveEntity.ItemEntity;
 /**
  * @author : github.com/sharmasourabh
  * @project : Chapter05 - Modern API Development with Spring and Spring Boot
@@ -54,6 +54,7 @@ public class CartEntity {
   public List<ItemEntity> getItems() {
     return items;
   }
+
 
   public CartEntity setItems(List<ItemEntity> items) {
     this.items = items;

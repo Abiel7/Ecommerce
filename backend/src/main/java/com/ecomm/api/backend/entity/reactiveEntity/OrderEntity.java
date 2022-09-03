@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.entity.reactiveEntity;
 
-import com.packt.modern.api.model.Order.StatusEnum;
+import com.ecommerce.api.model.Order;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -44,7 +44,7 @@ public class OrderEntity {
   private UUID shipmentId;
 
   @Column("status")
-  private StatusEnum status;
+  private Order.StatusEnum status;
 
   private UUID cartId;
 
@@ -80,11 +80,11 @@ public class OrderEntity {
     return this;
   }
 
-  public StatusEnum getStatus() {
+  public Order.StatusEnum getStatus() {
     return status;
   }
 
-  public OrderEntity setStatus(StatusEnum status) {
+  public OrderEntity setStatus(Order.StatusEnum status) {
     this.status = status;
     return this;
   }

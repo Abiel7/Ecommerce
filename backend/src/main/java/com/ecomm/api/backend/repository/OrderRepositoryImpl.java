@@ -11,6 +11,14 @@ import org.springframework.data.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
+import  java.util.stream.Collectors;
+
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.UUID;
+
+
 /**
  * The persistence context is just a synchronizer object that tracks the state of a
  * limited set of Java objects and makes sure that changes on those objects are eventually
@@ -22,7 +30,7 @@ import reactor.core.publisher.Mono;
 public class OrderRepositoryImpl implements OrderRepositoryExt  {
 
    private ConnectionFactory connectionFactory;
-   private DatabaseClient databaseClient;
+   private DatabaseClient dbaseClient;
    private ItemRepository itemRepository;
    private CartService cartService;
    private OrderItemRepository orderItemRepository;
@@ -37,18 +45,28 @@ public class OrderRepositoryImpl implements OrderRepositoryExt  {
             this.itemRepository = itemRepository;
             this.orderItemRepository = orderItemRepository;
             this.cartService = cartService;
-            this.databaseClient = databaseClient;
+            this.dbaseClient = databaseClient;
    }
     private OrderEntity toEntity(NewOrder order, CartEntity cartEntity) {
        OrderEntity orderEntity = new OrderEntity();
-
+        /*
+        populating orderEntity
+        https://www.logicbig.com/tutorials/spring-framework/spring-core/bean-utils-copy-properties.html
+         */
         BeanUtils.copyProperties(order, orderEntity);
         orderEntity.setUserEntity(cartEntity.getUser());
-        orderEntity.setCartId(cartEntity.getId());
+        orderEntity.setCardId(cartEntity.getId());
+        orderEntity.setCartId(cartEntity.getId())
+                .setCustomerId(UUID.fromString(order.getCustomerId()))
+                .setAddressId(UUID.fromString(order.getAddress().getId()))
+                .setOrderDate(Timestamp.from(Instant.now()))
+                .setTotal(cartEntity.getItems().stream().collect(
+                        Collectors.toMap(k -> k.getProductId(),v -> BigDecimal.valueOf(v.get))));
         return null;
     }
     @Override
     public Mono<OrderEntity> insert(Mono<NewOrder> m) {
+
         return null;
     }
 

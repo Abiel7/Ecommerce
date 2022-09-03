@@ -15,6 +15,14 @@ public class CustomerNotFoundException extends RuntimeException{
         this.errorCode = ErrorCode.CUSTOMER_NOT_FOUND.getErrCode();
     }
 
+    public String getErrMsgKey() {
+        return errMsgKey;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
 
 
 }

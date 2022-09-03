@@ -1,9 +1,8 @@
-package com.ecomm.api.backend.entity;
+package com.ecomm.api.backend.entity.imperativeEntity;
 
 
 import com.ecommerce.api.model.Order;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,7 +18,6 @@ public class OrderEntity {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-
     private UUID id;
 
     @Column(name = "TOTAL")
@@ -62,7 +60,7 @@ public class OrderEntity {
 
     @OneToOne(mappedBy = "orderEntity")
     private AuthorizationEntity authorizationEntity;
-
+    private UUID cartId; 
     public UUID getId() {
         return id;
     }
@@ -90,6 +88,10 @@ public class OrderEntity {
         return this;
     }
 
+    public OrderEntity setCartId(UUID cartId) {
+        this.cartId = cartId;
+        return this;
+    }
     public UserEntity getUserEntity() {
         return userEntity;
     }

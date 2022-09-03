@@ -1,8 +1,7 @@
-package com.ecomm.api.backend.entity;
+package com.ecomm.api.backend.entity.imperativeEntity;
 
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Collections;

@@ -1,14 +1,9 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.ShipmentEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.ShipmentEntity;
 import com.ecomm.api.backend.repository.ShipmentRepository;
 import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import reactor.core.publisher.Flux;
 
 @Service
 public class ShipmentServiceImpl implements ShipmentService {
@@ -19,7 +14,16 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
 
     @Override
+    public Flux<ShipmentEntity> getShipmentByOrderId(String orderId) {
+        return shipmentRepository.getShipmentByOrderId(orderId);
+    }
+
+    /*
+    before reactive approach
+    @Override
     public Iterable<ShipmentEntity> getShipmentByOrderId(@NotNull @Valid  String orderId) {
         return shipmentRepository.findAllById(List.of(UUID.fromString(orderId)));
     }
+
+     */
 }

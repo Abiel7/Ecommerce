@@ -1,17 +1,14 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AddressEntity;
-import com.ecomm.api.backend.entity.CardEntity;
-import com.ecomm.api.backend.entity.UserEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.AddressEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
 import com.ecomm.api.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.StreamSupport;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,7 +18,37 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Override
+    public Mono<Void> deleteCustomerById(String id) {
+        return deleteCustomerByID(UUID.fromString(id));
+    }
 
+    @Override
+    public Mono<Void> deleteCustomerByID(UUID id) {
+        return userRepository.deleteById(id).then();
+    }
+
+    @Override
+    public Flux<AddressEntity> getAddressesByCustomerID(String id) {
+        return userRepository.getAddressesByCustomerId(id);
+    }
+
+    @Override
+    public Flux<UserEntity> getAllCustomers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public Mono<CardEntity> getCardByCustomerId(String id) {
+        return userRepository.findCardByCustomerId(id);
+    }
+
+    @Override
+    public Mono<UserEntity> getCustomerById(String id) {
+        return userRepository.findById(UUID.fromString(id));
+    }
+
+    /*
     @Override
     public void deleteCustomerById(String id) {
         userRepository.deleteById(UUID.fromString(id));
@@ -51,4 +78,6 @@ public class UserServiceImpl implements UserService {
         );
         return cardEntityAtomicReference.get();
     }
+
+     */
 }

@@ -6,6 +6,8 @@ gen
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+!**/src/main/java/com/ecomm/api/backend/entity/imperativeEntity/
+
 ### STS ###
 .apt_generated
 .classpath

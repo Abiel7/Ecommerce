@@ -1,24 +1,58 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.OrderEntity;
-import com.ecomm.api.backend.exceptions.ResourceNotFoundException;
-import com.ecomm.api.backend.repository.OrderRepository;
+import com.ecomm.api.backend.entity.reactiveEntity.ItemEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.OrderEntity;
+import com.ecomm.api.backend.repository.*;
 import com.ecommerce.api.model.NewOrder;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.List;
+import java.util.function.BiFunction;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
     private OrderRepository orderRepository;
-    public OrderServiceImpl(OrderRepository orderRepository) {
+   private PaymentRepository paymentRepository;
+   private UserRepository userRepository;
+   private CardRepository cardRepository;
+   private ItemRepository itemRepository;
+    private ShipmentRepository shipmentRepository;
+    private BiFunction<OrderEntity, List<ItemEntity>, OrderEntity> biOrderItems = (o,fi) -> o.setItems(fi);
+
+    public OrderServiceImpl (OrderRepository orderRepository, PaymentRepository paymentRepository, UserRepository userRepository, CardRepository cardRepository, ItemRepository itemRepository, ShipmentRepository shipmentRepository) {
         this.orderRepository = orderRepository;
+        this.paymentRepository = paymentRepository;
+        this.userRepository = userRepository;
+        this.cardRepository = cardRepository;
+        this.itemRepository = itemRepository;
+        this.shipmentRepository = shipmentRepository;
     }
+
+    @Override
+    public Mono<OrderEntity> addOrder(@Valid  Mono<NewOrder> newOrder) {
+        return null;
+    }
+
+    @Override
+    public Mono<OrderEntity> updateMapping(OrderEntity orderEntity) {
+        return orderRepository.updateMapping(orderEntity);
+    }
+
+    @Override
+    public Flux<OrderEntity> getOrdersByCustomerId(String customerId) {
+        return null;
+    }
+
+    @Override
+    public Mono<OrderEntity> getByOrderId(String id) {
+        return null;
+    }
+
+    /*
     @Override
     public Iterable<OrderEntity> getOrdersByCustomerID(String customerID) {
         return orderRepository.findByCustomerId(UUID.fromString(customerID));
@@ -48,6 +82,8 @@ public class OrderServiceImpl implements OrderService {
     public Optional<OrderEntity> getOrderById(String orderID) {
         return orderRepository.findById(UUID.fromString(orderID));
     }
+
+     */
 
 
 }

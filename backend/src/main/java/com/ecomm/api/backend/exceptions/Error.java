@@ -1,10 +1,7 @@
 package com.ecomm.api.backend.exceptions;
 
 
-import lombok.Data;
-import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
-
 
 
 public class Error {
@@ -21,17 +18,17 @@ public class Error {
 
 
     public Error setUrl(String url) {
-        if(Strings.isBlank((url))){
+        if (Strings.isBlank((url))) {
             this.url = url;
         }
         return this;
     }
 
-    public Error setReqMethod(String method){
-        if(Strings.isBlank(method)){
+    public Error setReqMethod(String method) {
+        if (Strings.isBlank(method)) {
             this.reqMethod = method;
         }
-        return  this;
+        return this;
     }
 
     public String getErrorCode() {

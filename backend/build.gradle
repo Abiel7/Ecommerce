@@ -8,7 +8,7 @@ plugins {
 
 group = 'com.ecomm.api.backend'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "15"
+sourceCompatibility = JavaVersion.VERSION_15
 
 swaggerSources {
     def typeMappings = 'URI=URI, BigDecimal=BigDecimal, EntityModel=EntityModel'
@@ -39,41 +39,34 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.projectlombok:lombok:1.18.22'
-    implementation 'junit:junit:4.13.2'
-    implementation 'org.springframework:spring-test:5.3.18'
-    implementation 'net.anthavio.maven:spring-framework-bom:4.1.7.RELEASE'
-    implementation 'mysql:mysql-connector-java:8.0.28'
-
-    compileOnly 'commons-lang:commons-lang:2.3'
     // OpenAPI Starts
-    swaggerCodegen 'org.openapitools:openapi-generator-cli:4.3.1'
+    swaggerCodegen 'org.openapitools:openapi-generator-cli:5.0.0'
     compileOnly 'io.swagger:swagger-annotations:1.6.2'
     compileOnly 'org.springframework.boot:spring-boot-starter-validation'
     compileOnly 'org.openapitools:jackson-databind-nullable:0.2.1'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    compileOnly 'io.springfox:springfox-oas:3.0.0'
     // OpenAPI Ends
 
-    //DB starts
+    // DB Starts
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'com.googlecode.flyway:flyway-core:2.3.1'
-
+    implementation 'org.flywaydb:flyway-core'
     runtimeOnly 'com.h2database:h2'
-    // DB ends
-    compileOnly group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
-    compileOnly  group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+    // DB Ends
+
+    // Security Starts
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    //implementation 'com.auth0:java-jwt:4.0.0'
+    // Security Ends
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') /*{
-    exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-  }*/
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
-
 
 test {
     jvmArgs '--enable-preview'
     useJUnitPlatform()
 }
-
-targetCompatibility = JavaVersion.VERSION_15

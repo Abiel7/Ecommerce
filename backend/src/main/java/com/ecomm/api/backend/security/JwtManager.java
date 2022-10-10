@@ -1,5 +1,6 @@
 package com.ecomm.api.backend.security;
 
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,12 +15,14 @@ import static com.ecomm.api.backend.security.Constants.EXPIRATION_TIME;
 import static com.ecomm.api.backend.security.Constants.ROLE;
 import static java.util.stream.Collectors.toList;
 
+
 @Component
 public class JwtManager {
 
 
-    private final RSAPrivateKey privateKey;
-    private final RSAPublicKey publicKey;
+    private RSAPrivateKey privateKey;
+
+    private RSAPublicKey publicKey;
 
     public JwtManager(RSAPrivateKey privateKey, RSAPublicKey publicKey) {
         this.privateKey = privateKey;
@@ -36,7 +39,8 @@ public class JwtManager {
                                 .collect(toList()))
                 .withIssuedAt(new Date(now))
                 .withExpiresAt(new Date(now + EXPIRATION_TIME))
-                //.sign(Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8)));
                 .sign(Algorithm.RSA256(publicKey, privateKey));
     }
+
+
 }

@@ -21,13 +21,42 @@ public interface UserService {
 
     Optional<UserEntity> getCustomerByID(String id);
 
+    /**
+     * create a new user and  add it to the database
+     *
+     * @param user
+     * @return
+     */
     Optional<SignedInUser> createUser(User user);
 
+    /**
+     * Finds and returns a user  based  on given username
+     *
+     * @param userName
+     * @return
+     */
     UserEntity findUserByUsername(String userName);
 
-    SignedInUser getSignedUser(UserEntity userEntity);
+    /**
+     * creates a new model instance of signedinuser that holds the refresh token access token userId  and username
+     *
+     * @param userEntity
+     * @return
+     */
+    SignedInUser getSignedInUser(UserEntity userEntity);
 
+    /**
+     * Generates a new returns a new access token for a given valid refresh token
+     *
+     * @param refreshToken
+     * @return
+     */
     Optional<SignedInUser> getAccessToken(RefreshToken refreshToken);
 
+    /**
+     * Remove the refresh token from the database it is called when the user wants to sign out
+     *
+     * @param refreshToken
+     */
     void removeRefreshToken(RefreshToken refreshToken);
 }

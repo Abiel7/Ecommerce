@@ -3,13 +3,16 @@ package com.ecomm.api.backend.service;
 import com.ecomm.api.backend.entity.AddressEntity;
 import com.ecomm.api.backend.entity.CardEntity;
 import com.ecomm.api.backend.entity.UserEntity;
+import com.ecomm.api.backend.exceptions.GenericAlreadyExistsException;
 import com.ecomm.api.backend.repository.UserRepository;
 import com.ecommerce.api.model.RefreshToken;
 import com.ecommerce.api.model.SignedInUser;
 import com.ecommerce.api.model.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -59,12 +62,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserEntity> getCustomerByID(String id) {
-        return Optional.empty();
+        return userRepository.findById(UUID.fromString(id));
     }
 
     @Override
+    @Transactional
     public Optional<SignedInUser> createUser(User user) {
-        return Optional.empty();
+        Integer count = userRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail());
+        if (count > 0) {
+            throw new GenericAlreadyExistsException("User already exists use a different username and email");
+        }
+        UserEntity userEntity = new UserEntity();
+        BeanUtils.copyProperties(user, userEntity);
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
+        UserEntity savedUser = userRepository.save(userEntity);
+
     }
 
     @Override
@@ -73,7 +85,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public SignedInUser getSignedUser(UserEntity userEntity) {
+    public SignedInUser getSignedInUser(UserEntity userEntity) {
         return null;
     }
 
@@ -86,4 +98,5 @@ public class UserServiceImpl implements UserService {
     public void removeRefreshToken(RefreshToken refreshToken) {
 
     }
+
 }

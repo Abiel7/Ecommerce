@@ -1,7 +1,6 @@
 package com.ecomm.api.backend.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,7 +14,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", updatable = false, nullable = false,columnDefinition = "BINARY(16)")
+    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "BINARY(16)")
     private UUID id;
 
     @NotNull(message = "User name is required.")
@@ -38,6 +37,10 @@ public class UserEntity {
     @Column(name = "PHONE")
     private String phone;
 
+    @Column(name = "ROLE")
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role = RoleEnum.USER;
+
     @Column(name = "USER_STATUS")
     private String userStatus = "ACTIVE";
 
@@ -47,7 +50,8 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID")
     )
-    private List<AddressEntity> addresses = Collections.emptyList();;
+    private List<AddressEntity> addresses = Collections.emptyList();
+    ;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CardEntity> cards;
@@ -164,6 +168,15 @@ public class UserEntity {
 
     public UserEntity setOrder(List<OrderEntity> order) {
         this.orders = order;
+        return this;
+    }
+
+    public RoleEnum getRole() {
+        return role;
+    }
+
+    public UserEntity setRole(RoleEnum role) {
+        this.role = role;
         return this;
     }
 

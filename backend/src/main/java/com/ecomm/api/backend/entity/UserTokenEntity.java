@@ -19,7 +19,7 @@ public class UserTokenEntity {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity userEntity;
+    private UserEntity user;
 
     public UUID getId() {
         return id;
@@ -28,7 +28,7 @@ public class UserTokenEntity {
     public UserTokenEntity setId(UUID id, UserEntity userEntity, String refreshToken) {
 
         this.id = id;
-        this.userEntity = userEntity;
+        this.user = userEntity;
         this.refreshToken = refreshToken;
         return this;
     }
@@ -42,12 +42,12 @@ public class UserTokenEntity {
         return this;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public UserTokenEntity setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public UserTokenEntity setUser(UserEntity userEntity) {
+        this.user = userEntity;
         return this;
     }
 }

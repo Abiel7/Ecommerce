@@ -29,10 +29,10 @@ public class JwtManager {
         this.publicKey = publicKey;
     }
 
-    private String create(UserDetails userDetails) {
+    public String create(UserDetails userDetails) {
         final long now = System.currentTimeMillis();
         return JWT.create().
-                withIssuer("Modern API Development with Spring and Spring Boot")
+                withIssuer("Spring and Spring Boot")
                 .withSubject(userDetails.getUsername())
                 .withClaim(ROLE,
                         userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)

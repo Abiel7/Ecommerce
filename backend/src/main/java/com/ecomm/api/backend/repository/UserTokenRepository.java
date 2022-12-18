@@ -1,6 +1,6 @@
 package com.ecomm.api.backend.repository;
 
-import com.ecomm.api.backend.entity.UserTokenEntity;
+import com.ecomm.api.backend.entity.imperativeEntity.UserTokenEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

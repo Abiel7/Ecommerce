@@ -8,13 +8,11 @@ import com.ecommerce.api.model.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.ResponseEntity.notFound;
-import static org.springframework.http.ResponseEntity.ok;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.UUID;
+
+import static org.springframework.http.ResponseEntity.notFound;
 
 @RestController
 public class OrderController implements OrderApi {
@@ -43,6 +41,6 @@ public class OrderController implements OrderApi {
 
     @Override
     public ResponseEntity<List<Order>> getOrdersByCustomerID(@NotNull @Valid String customerId) {
-        return OrderApi.super.getOrdersByCustomerID(customerId);
+        return null;// OrderApi.super.getOrdersByCustomerID(customerId);
     }
 }

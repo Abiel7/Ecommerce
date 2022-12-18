@@ -1,9 +1,5 @@
 package com.ecomm.api.backend.controller;
 
-import static org.springframework.http.ResponseEntity.accepted;
-import static org.springframework.http.ResponseEntity.notFound;
-import static org.springframework.http.ResponseEntity.ok;
-
 import com.ecomm.api.backend.hateoas.AddressRepresentation;
 import com.ecomm.api.backend.hateoas.CardRepresentation;
 import com.ecomm.api.backend.hateoas.UserRepresentation;
@@ -16,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static org.springframework.http.ResponseEntity.*;
 
 
 @RestController
@@ -37,7 +35,7 @@ public class CustomerController implements CustomerApi {
     @Override
     public ResponseEntity<Void> deleteCustomerById(String id) {
         userService.deleteCustomerById(id);
-        return accepted().build() ;
+        return accepted().build();
     }
 
     @Override
@@ -61,8 +59,10 @@ public class CustomerController implements CustomerApi {
                 .map(ResponseEntity::ok)
                 .orElse(notFound().build());
     }
+
     @Override
     public ResponseEntity<User> getCustomerByID(String id) {
-        return CustomerApi.super.getCustomerByID(id);
+        return null; //userService.getCustomerById(id).map(userRepresentationAssembler::toModel).map(ResponseEntity::ok)
+        //.orElse(notFound().build());
     }
 }

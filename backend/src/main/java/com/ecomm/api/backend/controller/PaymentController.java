@@ -13,11 +13,19 @@ public class PaymentController implements PaymentApi {
     private PaymentService paymentService;
     private final PaymentRepresentation paymentRepresentation;
 
-    public  PaymentController(PaymentService paymentService, PaymentRepresentation paymentRepresentation) {
+    public PaymentController(PaymentService paymentService, PaymentRepresentation paymentRepresentation) {
         this.paymentService = paymentService;
         this.paymentRepresentation = paymentRepresentation;
     }
 
 
+    @Override
+    public ResponseEntity<Authorization> authorize(PaymentReq paymentReq) {
+        return null;
+    }
 
+    @Override
+    public ResponseEntity<Authorization> getOrderPaymentAuthorization(String id) {
+        return null;
+    }
 }

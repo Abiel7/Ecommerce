@@ -1,20 +1,25 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.AddressEntity;
-import com.ecomm.api.backend.entity.CardEntity;
-import com.ecomm.api.backend.entity.UserEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.AddressEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.Optional;
+import java.util.UUID;
 
 public interface UserService {
 
-    void deleteCustomerById(String id);
+    Mono<Void> deleteCustomerById(String id);
+    Mono<Void> deleteCustomerByID(UUID id );
 
-    Optional<Iterable<AddressEntity>> getAddressesByCustomerID(String id) ;
+    Flux<AddressEntity> getAddressesByCustomerID(String id) ;
 
-    Iterable<UserEntity> getAllCustomers();
+    Flux<UserEntity> getAllCustomers();
 
-    Optional<CardEntity> getCardByCustomerId(String id);
+    Mono<CardEntity> getCardByCustomerId(String id);
+
+    Mono<UserEntity> getCustomerById(String id);
 
 
  }

@@ -1,36 +1,34 @@
-package com.ecomm.api.backend.entity;
+package com.ecomm.api.backend.entity.reactiveEntity;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-@Entity
-@Table(name = "authorization")
+
+@Table("ecomm.authorization")
 public class AuthorizationEntity {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", updatable = false, nullable = false,columnDefinition = "BINARY(16)")
+    @Column("id")
     private UUID id;
 
-    @Column(name="AUTHORIZED")
+    @Column("authorized")
     private boolean authorized;
 
-    @Column(name="TIME")
+    @Column("time")
     private Timestamp time;
 
-    @Column(name = "MESSAGE")
+    @Column("message")
     private String message;
 
-    @Column(name = "ERROR")
+    @Column("error")
     private String error;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORDER_ID", referencedColumnName = "id")
+    /*@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "id")*/
     private OrderEntity orderEntity;
 
     public UUID getId() {

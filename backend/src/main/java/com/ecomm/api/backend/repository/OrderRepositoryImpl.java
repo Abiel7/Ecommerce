@@ -1,109 +1,80 @@
 package com.ecomm.api.backend.repository;
 
 
-import com.ecomm.api.backend.entity.CartEntity;
-import com.ecomm.api.backend.entity.ItemEntity;
-import com.ecomm.api.backend.entity.OrderEntity;
-import com.ecomm.api.backend.entity.OrderItemEntity;
-import com.ecomm.api.backend.exceptions.ResourceNotFoundException;
-import com.ecomm.api.backend.service.ItemService;
-import com.ecomm.api.backend.service.ItemServiceImpl;
+import com.ecomm.api.backend.entity.reactiveEntity.CartEntity;
+import com.ecomm.api.backend.entity.reactiveEntity.OrderEntity;
+import com.ecomm.api.backend.service.CartService;
 import com.ecommerce.api.model.NewOrder;
-import com.ecommerce.api.model.Order;
+import io.r2dbc.spi.ConnectionFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 
+/**
+ * The persistence context is just a synchronizer object that tracks the state of a
+ * limited set of Java objects and makes sure that changes on those objects are eventually
+ * persisted back into the database.
+ * by tagging  this class with @Transactional,  it is referring to database transaction atomicity, consistency, isolation, durability (ACID)
+ */
 @Repository
-@Transactional
-public class OrderRepositoryImpl implements OrderRepositoryExt  {
+//@Transactional
+public class OrderRepositoryImpl implements OrderRepositoryExt {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private ConnectionFactory connectionFactory;
 
     private ItemRepository itemRepository;
-    private AddressRepository addressRepository;
-    private CartRepository cartRepository;
+    private CartService cartService;
     private OrderItemRepository orderItemRepository;
-    private ItemService itemService;
 
+    public OrderRepositoryImpl(ConnectionFactory connectionFactory,
+                               ItemRepository itemRepository,
+                               OrderItemRepository orderItemRepository,
+                               CartService cartService
+    ) {
 
-    public OrderRepositoryImpl (EntityManager entityManager, ItemRepository itemRepository, AddressRepository addressRepository,
-                                CartRepository cartRepository, OrderItemRepository orderItemRepository, ItemService itemService) {
-        this.entityManager = entityManager;
+        this.connectionFactory = connectionFactory;
         this.itemRepository = itemRepository;
-        this.addressRepository = addressRepository;
-        this.cartRepository = cartRepository;
         this.orderItemRepository = orderItemRepository;
-        this.itemService = itemService;
+        this.cartService = cartService;
 
+    }/*
+        populating orderEntity by using  beanutils
 
+        https://www.logicbig.com/tutorials/spring-framework/spring-core/bean-utils-copy-properties.html
+         */
+
+    private OrderEntity toEntity(NewOrder order, CartEntity cartEntity) {
+        OrderEntity orderEntity = new OrderEntity();
+
+        BeanUtils.copyProperties(order, orderEntity);
+        orderEntity.setUserEntity(cartEntity.getUser());
+        orderEntity.setCardId(cartEntity.getId());
+        orderEntity.setCartId(cartEntity.getId())
+                .setCustomerId(UUID.fromString(order.getCustomerId()))
+                .setAddressId(UUID.fromString(order.getAddress().getId()))
+                .setOrderDate(Timestamp.from(Instant.now()))
+                .setTotal(cartEntity.getItems().stream().collect(Collectors.toMap(k -> k.getProductId(),
+                                v -> BigDecimal.valueOf(v.getQuantity()).multiply(v.getPrice())))
+                        .values().stream().reduce(BigDecimal::add).orElse(BigDecimal.ZERO));
+        return orderEntity;
     }
 
-    /**
-     *  fetch all items in the customers cart
-     *  caluclate the total price of the items in the cart
-     *  create new order
-     *  save to the database
-     *  remove items from cart  since cart items are part of the order
-     *  save order and cart items
-     *
-     * @param newOrder
-     * @return
-     */
     @Override
-    public Optional<OrderEntity> insert(NewOrder newOrder) {
-        Iterable<ItemEntity> dbItems = itemRepository.findByCustomerId(newOrder.getCustomerId());
-        List<ItemEntity> items = StreamSupport.stream(dbItems.spliterator(),false).collect(toList());
-        if(items.size() <1 ) {
-         throw new ResourceNotFoundException(String.format(" " +
-                    "No items found for customer id %s cart "  , newOrder.getCustomerId()));
-        }
-        BigDecimal total = BigDecimal.ZERO;
-        for(ItemEntity item : items) {
-            total = (BigDecimal.valueOf(item.getQuantity()).multiply(item.getPrice())).add(total);
-        }
+    public Mono<OrderEntity> insert(Mono<NewOrder> m) {
+        //R2dbcEntityTemplate template = new R2dbcEntityTemplate(dbaseClient);
 
-        Timestamp orderDate = Timestamp.from(Instant.now());
-        entityManager.createNativeQuery("""
-        INSERT INTO ecomm.orders (address_id, card_id, customer_id, order_date, total, status)
-        VALUES(?, ?, ?, ?, ?, ?)
-        """)
-                .setParameter(1, newOrder.getAddress().getId())
-                .setParameter(2, newOrder.getCard().getId())
-                .setParameter(3, newOrder.getCustomerId())
-                .setParameter(4, orderDate)
-                .setParameter(5, total)
-                .setParameter(6, Order.StatusEnum.CREATED.getValue())
-                .executeUpdate();
-        Optional<CartEntity> oCart = cartRepository.findByCustomerId(UUID.fromString(newOrder.getCustomerId()));
-        CartEntity cart = oCart.orElseThrow(() -> new ResourceNotFoundException(String.format("Cart not found for given customer (ID: %s)", newOrder.getCustomerId())));
-        itemRepository.deleteCartItemJoinById(cart.getItems().stream().map(i -> i.getId()).collect(toList()), cart.getId());
-        OrderEntity entity = (OrderEntity) entityManager.createNativeQuery("""
-        SELECT o.* FROM ecomm.orders o WHERE o.customer_id = ? AND o.order_date >= ?
-        """, OrderEntity.class)
-                .setParameter(1, newOrder.getCustomerId())
-                .setParameter(2, OffsetDateTime.ofInstant(orderDate.toInstant(), ZoneId.of("Z")).truncatedTo(
-                        ChronoUnit.MICROS))
-                .getSingleResult();
-        orderItemRepository.saveAll(cart.getItems().stream().map(i -> new OrderItemEntity()
-                .setOrderId(entity.getId()).setItemId(i.getId())).collect(toList()));
-
-        return Optional.of(entity);
+        return null;
     }
 
+    @Override
+    public Mono<OrderEntity> updateMapping(OrderEntity m) {
+        return null;
+    }
 }

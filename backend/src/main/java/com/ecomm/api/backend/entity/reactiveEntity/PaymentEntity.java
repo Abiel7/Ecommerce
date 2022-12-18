@@ -1,27 +1,26 @@
-package com.ecomm.api.backend.entity;
+package com.ecomm.api.backend.entity.reactiveEntity;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
-@Table(name = "payment")
+
+@Table("ecomm.payment")
 public class PaymentEntity {
+
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", updatable = false, nullable = false,columnDefinition = "BINARY(16)")
+    @Column("id")
     private UUID id;
 
-    @Column(name="AUTHORIZED")
+    @Column("authorized")
     private boolean authorized;
 
-    @Column(name = "MESSAGE")
+    @Column("message")
     private String message;
 
-    @OneToOne(mappedBy = "paymentEntity")
+    // @OneToOne(mappedBy = "paymentEntity")
     private OrderEntity orderEntity;
 
     public UUID getId() {

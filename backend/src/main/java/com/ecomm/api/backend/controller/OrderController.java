@@ -7,14 +7,9 @@ import com.ecommerce.api.model.NewOrder;
 import com.ecommerce.api.model.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import static org.springframework.http.ResponseEntity.notFound;
-import static org.springframework.http.ResponseEntity.ok;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.UUID;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class OrderController implements OrderApi {
@@ -27,22 +22,17 @@ public class OrderController implements OrderApi {
     }
 
     @Override
-    public ResponseEntity<Order> addOrder(NewOrder newOrder) {
-        return orderService.addOrder(newOrder)
-                .map(orderRepresentationAssembler::toModel)
-                .map(ResponseEntity::ok)
-                .orElse(notFound().build());
+    public Mono<ResponseEntity<Order>> addOrder(Mono<NewOrder> newOrder, ServerWebExchange exchange) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Order> getOrderById(String id) {
-        return orderService.getOrderById(id).map(orderRepresentationAssembler::toModel).map(ResponseEntity::ok)
-                .orElse(notFound().build());
-
+    public Mono<ResponseEntity<Order>> getOrderById(String id, ServerWebExchange exchange) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Order>> getOrdersByCustomerID(@NotNull @Valid String customerId) {
-        return OrderApi.super.getOrdersByCustomerID(customerId);
+    public Mono<ResponseEntity<Flux<Order>>> getOrdersByCustomerID(String customerId, ServerWebExchange exchange) {
+        return null;
     }
 }

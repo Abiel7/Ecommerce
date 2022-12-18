@@ -1,20 +1,34 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.reactiveEntity.CartEntity;
+import com.ecomm.api.backend.entity.CartEntity;
+import com.ecomm.api.backend.entity.ItemEntity;
+import com.ecomm.api.backend.exceptions.CustomerNotFoundException;
+import com.ecomm.api.backend.exceptions.GenericAlreadyExistsException;
+import com.ecomm.api.backend.exceptions.ItemNotFoundException;
 import com.ecomm.api.backend.repository.CartRepository;
 import com.ecomm.api.backend.repository.UserRepository;
+import com.ecommerce.api.CustomerApi;
+import com.ecommerce.api.model.Cart;
 import com.ecommerce.api.model.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import static java.util.stream.Collectors.toList;
+import static org.springframework.objenesis.instantiator.util.UnsafeUtils.getUnsafe;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
-
+    @Autowired
     private CartRepository cartRepository;
-
+    @Autowired
     private UserRepository userRepository;
-
+    @Autowired
 
     private ItemServiceImpl itemService;
 
@@ -24,32 +38,7 @@ public class CartServiceImpl implements CartService {
         this.itemService = itemService;
     }
 
-    @Override
-    public Flux<Item> addCartItemsByCustomerId(String customerId, Item item) {
-        return null;
-    }
 
-    @Override
-    public Flux<Item> addOrReplaceItemsByCustomerId(String customerId, Item item) {
-        return null;
-    }
-
-    @Override
-    public Mono<Void> deleteCart(String customerId) {
-        return null;
-    }
-
-    @Override
-    public Mono<Void> deleteItemFromCart(String customerId, String itemId) {
-        return null;
-    }
-
-    @Override
-    public Mono<CartEntity> getCartByCustomerId(String customerId) {
-        return null;
-    }
-
-/*
     @Override
     public List<Item> addCartItemsByCustomerId(String customerId, Item item) {
        CartEntity entity = getCartByCustomerId(customerId);
@@ -118,8 +107,6 @@ public class CartServiceImpl implements CartService {
         return itemService.toModel(itemEntiy.get());
 
     }
-
- */
 
 
 }

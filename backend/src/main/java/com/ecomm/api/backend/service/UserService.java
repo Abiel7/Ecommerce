@@ -1,25 +1,62 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.reactiveEntity.AddressEntity;
-import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
-import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+import com.ecomm.api.backend.entity.AddressEntity;
+import com.ecomm.api.backend.entity.CardEntity;
+import com.ecomm.api.backend.entity.UserEntity;
+import com.ecommerce.api.model.RefreshToken;
+import com.ecommerce.api.model.SignedInUser;
+import com.ecommerce.api.model.User;
 
-import java.util.UUID;
+import java.util.Optional;
 
 public interface UserService {
 
-    Mono<Void> deleteCustomerById(String id);
-    Mono<Void> deleteCustomerByID(UUID id );
+    void deleteCustomerById(String id);
 
-    Flux<AddressEntity> getAddressesByCustomerID(String id) ;
+    Optional<Iterable<AddressEntity>> getAddressesByCustomerID(String id);
 
-    Flux<UserEntity> getAllCustomers();
+    Iterable<UserEntity> getAllCustomers();
 
-    Mono<CardEntity> getCardByCustomerId(String id);
+    Optional<CardEntity> getCardByCustomerId(String id);
 
-    Mono<UserEntity> getCustomerById(String id);
+    Optional<UserEntity> getCustomerByID(String id);
 
+    /**
+     * create a new user and  add it to the database
+     *
+     * @param user
+     * @return
+     */
+    Optional<SignedInUser> createUser(User user);
 
- }
+    /**
+     * Finds and returns a user  based  on given username
+     *
+     * @param userName
+     * @return
+     */
+    UserEntity findUserByUsername(String userName);
+
+    /**
+     * creates a new model instance of signedinuser that holds the refresh token access token userId  and username
+     *
+     * @param userEntity
+     * @return
+     */
+    SignedInUser getSignedInUser(UserEntity userEntity);
+
+    /**
+     * Generates a new returns a new access token for a given valid refresh token
+     *
+     * @param refreshToken
+     * @return
+     */
+    Optional<SignedInUser> getAccessToken(RefreshToken refreshToken);
+
+    /**
+     * Remove the refresh token from the database it is called when the user wants to sign out
+     *
+     * @param refreshToken
+     */
+    void removeRefreshToken(RefreshToken refreshToken);
+}

@@ -44,10 +44,10 @@ paths:
           content:
             application/xml:
               schema:
-                  $ref: '#/components/schemas/Cart'
+                $ref: '#/components/schemas/Cart'
             application/json:
               schema:
-                  $ref: '#/components/schemas/Cart'
+                $ref: '#/components/schemas/Cart'
         400:
           description: Given customer id does not exist
           content: { }
@@ -110,10 +110,10 @@ paths:
       description: Add items to customer shoping cart if the item is not present on cart, or increase the the quantity of items if the item already exist on the cart
       operationId: addCartItemsByCustomerId
       parameters:
-        - name : customerId
+        - name: customerId
           in: path
           description: customer identifier
-          required:  true
+          required: true
           schema:
             type: string
       requestBody:
@@ -141,7 +141,7 @@ paths:
                   $ref: '#/components/schemas/Item'
         400:
           description: given customer identification is not present
-          content:  { }
+          content: { }
     put:
       tags:
         - cart
@@ -208,18 +208,18 @@ paths:
             application/xml:
               schema:
 
-                 $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/Item'
             application/json:
               schema:
 
-                  $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/Item'
         400:
           description: item does not exists operation failed
           content: { }
     delete:
       tags:
         - cart
-      summary:  remove items on customer cart
+      summary: remove items on customer cart
       description: remove items from  customers cart by given customer id and item id
       operationId: deleteItemFromCart
       parameters:
@@ -229,7 +229,7 @@ paths:
           required: true
           schema:
             type: string
-        - name : itemId
+        - name: itemId
           in: path
           description: item identification
           required: true
@@ -257,17 +257,17 @@ paths:
 
       responses:
         200:
-          description:  order added successfully
+          description: order added successfully
           content:
             application/xml:
               schema:
-                 $ref: '#/components/schemas/Order'
+                $ref: '#/components/schemas/Order'
             application/json:
               schema:
-                  $ref: '#/components/schemas/Order'
+                $ref: '#/components/schemas/Order'
         400:
           description: operation failed
-          content:  {}
+          content: { }
     get:
       tags:
         - order
@@ -327,13 +327,13 @@ paths:
 
         400:
           description: order id does not exist
-          content:  { }
+          content: { }
   /api/v1/customers:
     get:
       tags:
         - customer
       summary: Returns  all customers
-      description:  Returns all users, or empty collection
+      description: Returns all users, or empty collection
       operationId: getAllCustomers
       responses:
         200:
@@ -376,7 +376,7 @@ paths:
                 $ref: '#/components/schemas/User'
         400:
           description: Customer id does not exist
-          content:  { }
+          content: { }
     delete:
       tags:
         - customer
@@ -393,7 +393,7 @@ paths:
       responses:
         200:
           description: request accepted, reurns theis status even if the user does not exists
-          content: {}
+          content: { }
   /api/v1/customers/{id}/card:
     get:
       tags:
@@ -440,10 +440,10 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref:  '#/components/schemas/Address'
+                  $ref: '#/components/schemas/Address'
             application/json:
               schema:
-                  $ref: '#/components/schemas/Address'
+                $ref: '#/components/schemas/Address'
   /api/v1/addresses:
     get:
       tags:
@@ -465,14 +465,14 @@ paths:
     post:
       tags:
         - address
-      summary:  create new Addresse
+      summary: create new Addresse
       description: create new addresses, nothing happen if the addresse already exists
       operationId: createAddress
       requestBody:
         content:
           application/xml:
             schema:
-                $ref: '#/components/schemas/AddAddressReq'
+              $ref: '#/components/schemas/AddAddressReq'
           application/json:
             schema:
               $ref: '#/components/schemas/AddAddressReq'
@@ -482,7 +482,7 @@ paths:
           content:
             application/xml:
               schema:
-                 $ref: '#/components/schemas/Address'
+                $ref: '#/components/schemas/Address'
             application/json:
               schema:
                 $ref: '#/components/schemas/Address'
@@ -496,7 +496,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description:  address identifier
+          description: address identifier
           required: true
           schema:
             type: string
@@ -506,7 +506,7 @@ paths:
           content:
             application/xml:
               schema:
-                  $ref: '#/components/schemas/Address'
+                $ref: '#/components/schemas/Address'
             application/json:
               schema:
                 $ref: '#/components/schemas/Address'
@@ -526,9 +526,9 @@ paths:
             type: string
 
       responses:
-              200:
-                description: successfull fetch
-                content:  {}
+        200:
+          description: successfull fetch
+          content: { }
   /api/v1/cards:
     get:
       tags:
@@ -585,7 +585,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description:   card identifier
+          description: card identifier
           required: true
           schema:
             type: string
@@ -614,9 +614,9 @@ paths:
           schema:
             type: string
       responses:
-          200:
-            description: Accepts the deletion request and perform deletion. If ID does not exist, does nothing.
-            content: { }
+        200:
+          description: Accepts the deletion request and perform deletion. If ID does not exist, does nothing.
+          content: { }
   /api/v1/payments:
     post:
       tags:
@@ -626,7 +626,7 @@ paths:
       operationId: authorize
       requestBody:
         content:
-          application/xml :
+          application/xml:
             schema:
               $ref: '#/components/schemas/PaymentReq'
           application/json:
@@ -684,19 +684,19 @@ paths:
               $ref: '#/components/schemas/ShippingReq'
       responses:
         200:
-         description: For successful fetch.
-         content:
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Authorization'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Authorization'
+          description: For successful fetch.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
     get:
       tags:
         - shipping
-      summary:  Rturn the shipment
-      description:  Return the shipment by given order id
+      summary: Rturn the shipment
+      description: Return the shipment by given order id
       operationId: getShippingByOrderid
       parameters:
         - name: id
@@ -709,16 +709,16 @@ paths:
         200:
           description: For successful fetch.
           content:
-              application/xml:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Shipment'
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Shipment'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shipment'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shipment'
   /api/v1/products:
     get:
       tags:
@@ -795,7 +795,75 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
 
+  /api/v1/users:
+    post:
+      tags:
+        - users
+      summary: Signup a new customer
+      description: create new customer who can login and do shoping
+      operationId: signUp
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: for successfull user creation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SignedInUser'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedInUser'
 
+  /api/v1/auth/token:
+    post:
+      tags:
+        - user
+      summary: a way for the customer or the user to log in
+      description: Signin the customer that then generates JWT and refresh token. which can be used for accessing APIs.
+      operationId: signIn
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SignInReq'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInReq'
+      responses:
+        200:
+          description: when successfull users recive the access and refresh token.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SignedInUser'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedInUser'
+
+    delete:
+      tags:
+        - user
+      summary: signout the customer.
+      description: sign outs the customer, it removes refresh token from DB.
+      operationId: signOut
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/RefreshToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshToken'
+      responses:
+        202:
+          description: Accepts the request for logout.
 components:
   schemas:
     Cart:
@@ -815,13 +883,13 @@ components:
       type: object
       properties:
         itemId:
-          description:  the item identifier
+          description: the item identifier
           type: string
         quantity:
           description: The item Quantity
           type: integer
           format: int32
-        unitPrice :
+        unitPrice:
           description: Price per unit
           type: BigDecimal
     Order:
@@ -1139,6 +1207,44 @@ components:
         name:
           description: tag name
           type: string
+
+    SignedInUser:
+      description: Signed-in user information
+      type: object
+      properties:
+        refreshtoken:
+          description: refresh token
+          type: string
+        accessToken:
+          description: JWT token/ access token
+          type: string
+        username:
+          description: User Name
+          type: string
+        userId:
+          description: user Identifier
+          type: string
+
+    RefreshToken:
+      description: Refresh token
+      type: object
+      properties:
+        refreshtoken:
+          description: rerfresh token
+          type: string
+
+    SignInReq:
+      description: request body for sign in
+      type: object
+      properties:
+        userName:
+          description: username of the user
+          type: string
+        password:
+          description: user password
+          type: string
+
+
 
 
 

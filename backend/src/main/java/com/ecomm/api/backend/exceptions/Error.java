@@ -3,6 +3,8 @@ package com.ecomm.api.backend.exceptions;
 
 import org.apache.logging.log4j.util.Strings;
 
+import java.time.Instant;
+
 
 public class Error {
 
@@ -12,6 +14,8 @@ public class Error {
     private String message;
     /*Http status  code */
     private Integer status;
+
+    private Instant timeStamp;
 
     private String url = "Not available";
     private String reqMethod = "Not available";
@@ -39,6 +43,7 @@ public class Error {
         this.errorCode = errorCode;
     }
 
+
     public String getMessage() {
         return message;
     }
@@ -46,6 +51,7 @@ public class Error {
     public void setMessage(String message) {
         this.message = message;
     }
+
 
     public Integer getStatus() {
         return status;
@@ -55,11 +61,23 @@ public class Error {
         this.status = status;
     }
 
+
     public String getUrl() {
         return url;
     }
 
+
     public String getReqMethod() {
         return reqMethod;
+    }
+
+    public Instant getTimeStamp() {
+        return timeStamp;
+    }
+
+    public Error setTimeStamp(Instant timeStamp) {
+
+        this.timeStamp = timeStamp;
+        return this;
     }
 }

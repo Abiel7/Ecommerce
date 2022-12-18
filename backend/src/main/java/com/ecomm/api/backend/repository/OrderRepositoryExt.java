@@ -1,12 +1,13 @@
 package com.ecomm.api.backend.repository;
 
-import com.ecomm.api.backend.entity.reactiveEntity.OrderEntity;
+import com.ecomm.api.backend.entity.OrderEntity;
 import com.ecommerce.api.model.NewOrder;
-import reactor.core.publisher.Mono;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+import java.util.UUID;
 
 public interface OrderRepositoryExt  {
-    Mono<OrderEntity> insert(Mono<NewOrder> newOrder); // insert new order
-
-    // update mapping
-    Mono<OrderEntity> updateMapping(OrderEntity order);
+    Optional<OrderEntity> insert(NewOrder m); // insert new order
 }

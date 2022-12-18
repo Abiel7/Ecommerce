@@ -1,54 +1,35 @@
 package com.ecomm.api.backend.service;
 
-import com.ecomm.api.backend.entity.reactiveEntity.AddressEntity;
-import com.ecomm.api.backend.entity.reactiveEntity.CardEntity;
-import com.ecomm.api.backend.entity.reactiveEntity.UserEntity;
+import com.ecomm.api.backend.entity.AddressEntity;
+import com.ecomm.api.backend.entity.CardEntity;
+import com.ecomm.api.backend.entity.UserEntity;
+import com.ecomm.api.backend.exceptions.GenericAlreadyExistsException;
 import com.ecomm.api.backend.repository.UserRepository;
+import com.ecommerce.api.model.RefreshToken;
+import com.ecommerce.api.model.SignedInUser;
+import com.ecommerce.api.model.User;
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
+import javax.transaction.Transactional;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
+
+
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    @Override
-    public Mono<Void> deleteCustomerById(String id) {
-        return deleteCustomerByID(UUID.fromString(id));
-    }
 
-    @Override
-    public Mono<Void> deleteCustomerByID(UUID id) {
-        return userRepository.deleteById(id).then();
-    }
-
-    @Override
-    public Flux<AddressEntity> getAddressesByCustomerID(String id) {
-        return userRepository.getAddressesByCustomerId(id);
-    }
-
-    @Override
-    public Flux<UserEntity> getAllCustomers() {
-        return userRepository.findAll();
-    }
-
-    @Override
-    public Mono<CardEntity> getCardByCustomerId(String id) {
-        return userRepository.findCardByCustomerId(id);
-    }
-
-    @Override
-    public Mono<UserEntity> getCustomerById(String id) {
-        return userRepository.findById(UUID.fromString(id));
-    }
-
-    /*
     @Override
     public void deleteCustomerById(String id) {
         userRepository.deleteById(UUID.fromString(id));
@@ -62,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Iterable<UserEntity> getAllCustomers() {
-        return  userRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
@@ -71,13 +52,51 @@ public class UserServiceImpl implements UserService {
         userRepository.findById(UUID.fromString(id)).ifPresent(userEntity -> {
 
 
-            if(Objects.nonNull(userEntity.getCard()) && userEntity.getCard().isEmpty()) {
-                cardEntityAtomicReference.set(Optional.of(userEntity.getCard().get(0)));
-            }
-        }
+                    if (Objects.nonNull(userEntity.getCard()) && userEntity.getCard().isEmpty()) {
+                        cardEntityAtomicReference.set(Optional.of(userEntity.getCard().get(0)));
+                    }
+                }
         );
         return cardEntityAtomicReference.get();
     }
 
-     */
+    @Override
+    public Optional<UserEntity> getCustomerByID(String id) {
+        return userRepository.findById(UUID.fromString(id));
+    }
+
+    @Override
+    @Transactional
+    public Optional<SignedInUser> createUser(User user) {
+        Integer count = userRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail());
+        if (count > 0) {
+            throw new GenericAlreadyExistsException("User already exists use a different username and email");
+        }
+        UserEntity userEntity = new UserEntity();
+        BeanUtils.copyProperties(user, userEntity);
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
+        UserEntity savedUser = userRepository.save(userEntity);
+
+    }
+
+    @Override
+    public UserEntity findUserByUsername(String userName) {
+        return null;
+    }
+
+    @Override
+    public SignedInUser getSignedInUser(UserEntity userEntity) {
+        return null;
+    }
+
+    @Override
+    public Optional<SignedInUser> getAccessToken(RefreshToken refreshToken) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void removeRefreshToken(RefreshToken refreshToken) {
+
+    }
+
 }
